@@ -16,5 +16,5 @@ SQLALCHEMY_DATABASE_URI = 'postgresql://fyyur:fyyur123!@localhost/fyyur'
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-logging.basicConfig()
-logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+#logging.basicConfig()
+#logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)

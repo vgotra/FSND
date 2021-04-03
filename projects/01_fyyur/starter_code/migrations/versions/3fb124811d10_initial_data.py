@@ -29,22 +29,22 @@ def upgrade():
 
     artists_table = table('Artists',
                           column('name', String), column('phone', String), column('image_link', String),
-                          column('website', String), column('facebook_link', String), column('seeking_venue', Boolean),
+                          column('website_link', String), column('facebook_link', String), column('seeking_venue', Boolean),
                           column('seeking_description', String), column('city_id', Integer))
-    default_artists = [{"name": r["name"], "phone": r["phone"], "image_link": r["image_link"], "website": r["website"],
-                        "facebook_link": r["facebook_link"], "seeking_venue": r["seeking_venue"],
-                        "seeking_description": r["seeking_description"],
+    default_artists = [{"name": r["name"], "phone": r["phone"], "image_link": r["image_link"],
+                        "website_link": r["website_link"], "facebook_link": r["facebook_link"],
+                        "seeking_venue": r["seeking_venue"], "seeking_description": r["seeking_description"],
                         "city_id": next(x for x in cities if x["name"] == r["city"])["id"]}
                        for r in DefaultArtists]
     op.bulk_insert(artists_table, default_artists)
 
     venues_table = table('Venues',
                          column('name', String), column('phone', String), column('address', String),
-                         column('website', String), column('image_link', String), column('facebook_link', String),
+                         column('website_link', String), column('image_link', String), column('facebook_link', String),
                          column('seeking_talent', Boolean), column('seeking_description', String),
                          column('city_id', Integer))
     default_venues = [{"name": r["name"], "phone": r["phone"], "address": r["address"], "image_link": r["image_link"],
-                       "website": r["website"], "facebook_link": r["facebook_link"],
+                       "website_link": r["website_link"], "facebook_link": r["facebook_link"],
                        "seeking_talent": r["seeking_talent"], "seeking_description": r["seeking_description"],
                        "city_id": next(x for x in cities if x["name"] == r["city"])["id"]}
                       for r in DefaultVenues]
