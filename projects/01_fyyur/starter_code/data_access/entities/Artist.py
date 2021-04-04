@@ -3,7 +3,7 @@ from data_access.entities.ArtistGenre import artistgenre_table
 from data_access.entities import City, Show, Genre
 
 
-class Artist(db.Model, object):
+class Artist(db.Model):
     __tablename__ = 'Artists'
 
     id = db.Column(db.Integer, primary_key=True)

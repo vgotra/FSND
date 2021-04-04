@@ -1,13 +1,10 @@
-from sqlalchemy import Integer, Table, MetaData
-from sqlalchemy import desc, delete, table, column
-from sqlalchemy.orm import contains_eager
+from sqlalchemy import desc
 
 from data_access.conversion_helpers.VenuesConversion import VenuesConversion
 from data_access.entities.City import City
 from data_access.entities.Genre import Genre
 from data_access.entities.Show import Show
 from data_access.entities.Venue import Venue
-from data_access.entities.VenueGenre import venuegenre_table
 
 
 class VenuesRepository:

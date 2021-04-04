@@ -2,6 +2,7 @@ from data_access import db
 from data_access.entities.VenueGenre import venuegenre_table
 from data_access.entities import City, Show, Genre
 
+
 class Venue(db.Model):
     __tablename__ = 'Venues'
 

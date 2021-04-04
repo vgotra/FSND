@@ -2,7 +2,6 @@ from data_access.conversion_helpers.ArtistsConversion import ArtistsConversion
 from data_access.entities.Artist import Artist
 from data_access.entities.City import City
 from data_access.entities.Genre import Genre
-from data_access.entities.Show import Show
 
 
 class ArtistsRepository:
@@ -16,7 +15,7 @@ class ArtistsRepository:
         return result
 
     def get_artist_by_id(self, artist_id):
-        artist = self.db.session.query(Artist)\
+        artist = self.db.session.query(Artist) \
             .join(Artist.city) \
             .join(Artist.genres) \
             .filter(Artist.id == artist_id).first()
@@ -35,7 +34,7 @@ class ArtistsRepository:
         return result
 
     def search_artists(self, search_term):
-        artists_query = self.db.session.query(Artist)\
+        artists_query = self.db.session.query(Artist) \
             .join(Artist.city) \
             .join(Artist.shows) \
             .filter(Artist.name.ilike("%{}%".format(search_term)))
@@ -47,7 +46,7 @@ class ArtistsRepository:
         return result
 
     def save_artist(self, artist_id, artist):
-        artist_db = self.db.session.query(Artist)\
+        artist_db = self.db.session.query(Artist) \
             .join(Artist.city) \
             .join(Artist.shows) \
             .join(Artist.genres) \
@@ -105,9 +104,9 @@ class ArtistsRepository:
                 new_artist.genres.append(genre_to_attach)
 
             city = self.db.session.query(City) \
-                    .filter(City.name.ilike("%{}%".format(artist.city.data)),
-                            City.state.ilike("%{}%".format(artist.state.data)), ) \
-                    .first()
+                .filter(City.name.ilike("%{}%".format(artist.city.data)),
+                        City.state.ilike("%{}%".format(artist.state.data)), ) \
+                .first()
 
             if city is None:
                 city = City()
