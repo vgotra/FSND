@@ -2,6 +2,7 @@ from data_access.conversion_helpers.ArtistsConversion import ArtistsConversion
 from data_access.entities.Artist import Artist
 from data_access.entities.City import City
 from data_access.entities.Genre import Genre
+from data_access.entities.Show import Show
 
 
 class ArtistsRepository:
@@ -15,19 +16,29 @@ class ArtistsRepository:
         return result
 
     def get_artist_by_id(self, artist_id):
-        artist = self.db.session.query(Artist).join(City).filter(Artist.id == artist_id).first()
+        artist = self.db.session.query(Artist)\
+            .join(Artist.city) \
+            .join(Artist.genres) \
+            .filter(Artist.id == artist_id).first()
 
         result = ArtistsConversion.convert_to_artist_model(artist)
         return result
 
     def get_artist_with_shows_by_id(self, artist_id):
-        artist = self.db.session.query(Artist).join(City).filter(Artist.id == artist_id).first()
+        artist = self.db.session.query(Artist) \
+            .join(Artist.city) \
+            .join(Artist.shows) \
+            .join(Artist.genres) \
+            .filter(Artist.id == artist_id).first()
 
         result = ArtistsConversion.convert_to_artist_with_shows_model(artist)
         return result
 
     def search_artists(self, search_term):
-        artists_query = self.db.session.query(Artist).filter(Artist.name.ilike("%{}%".format(search_term)))
+        artists_query = self.db.session.query(Artist)\
+            .join(Artist.city) \
+            .join(Artist.shows) \
+            .filter(Artist.name.ilike("%{}%".format(search_term)))
 
         count = artists_query.count()
         artists = artists_query.all()
@@ -36,7 +47,11 @@ class ArtistsRepository:
         return result
 
     def save_artist(self, artist_id, artist):
-        artist_db = self.db.session.query(Artist).join(City).filter(Artist.id == artist_id).first()
+        artist_db = self.db.session.query(Artist)\
+            .join(Artist.city) \
+            .join(Artist.shows) \
+            .join(Artist.genres) \
+            .filter(Artist.id == artist_id).first()
 
         artist_db.name = artist.name.data
         artist_db.phone = artist.phone.data

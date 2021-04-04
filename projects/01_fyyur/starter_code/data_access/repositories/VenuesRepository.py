@@ -16,9 +16,8 @@ class VenuesRepository:
 
     def get_venues_grouped_by_city(self):
         cities = self.db.session.query(City) \
-            .join(Venue, isouter=True) \
-            .join(Show, isouter=True) \
-            .options(contains_eager(City.venues).contains_eager(Venue.shows)) \
+            .join(City.venues, isouter=True) \
+            .join(Venue.shows, isouter=True) \
             .order_by(desc(City.name)) \
             .all()
 
@@ -26,19 +25,29 @@ class VenuesRepository:
         return result
 
     def get_venue_by_id(self, venue_id):
-        venue = self.db.session.query(Venue).filter_by(id=venue_id).first()
+        venue = self.db.session.query(Venue) \
+            .join(Venue.city) \
+            .join(Venue.genres) \
+            .filter(Venue.id == venue_id).first()
 
         result = VenuesConversion.convert_to_venue_model(venue)
         return result
 
     def get_venue_with_shows_by_id(self, venue_id):
-        venue = self.db.session.query(Venue).filter_by(id=venue_id).first()
+        venue = self.db.session.query(Venue) \
+            .join(Venue.city) \
+            .join(Venue.shows) \
+            .join(Venue.genres) \
+            .filter(Venue.id == venue_id).first()
 
         result = VenuesConversion.convert_to_venue_with_shows_model(venue)
         return result
 
     def search_venues(self, search_term):
-        venues_query = self.db.session.query(Venue).filter(Venue.name.ilike("%{}%".format(search_term)))
+        venues_query = self.db.session.query(Venue) \
+            .join(Venue.city) \
+            .join(Venue.shows) \
+            .filter(Venue.name.ilike("%{}%".format(search_term)))
 
         count = venues_query.count()
         venues = venues_query.all()
