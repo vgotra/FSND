@@ -3,7 +3,7 @@ from data_access.entities.Show import Show
 
 class ShowsConversion:
 
-    def convert_to_show_model(show: Show):
+    def convert_to_show_model(show):
         result = {
             "venue_id": show.venue.id,
             "venue_name": show.venue.name,

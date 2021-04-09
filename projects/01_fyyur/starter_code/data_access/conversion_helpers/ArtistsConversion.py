@@ -5,7 +5,7 @@ from data_access.entities.Artist import Artist
 
 class ArtistsConversion:
 
-    def convert_to_artist_model(artist: Artist):
+    def convert_to_artist_model(artist):
         result = {
             "id": artist.id,
             "name": artist.name,
@@ -21,7 +21,7 @@ class ArtistsConversion:
         }
         return result
 
-    def convert_to_artist_with_shows_model(artist: Artist):
+    def convert_to_artist_with_shows_model(artist):
         past_shows = [x for x in artist.shows if x.start_time <= datetime.utcnow()]
         upcoming_shows = [x for x in artist.shows if x.start_time >= datetime.utcnow()]
 
@@ -48,7 +48,7 @@ class ArtistsConversion:
         }
         return result
 
-    def convert_to_artist_search_results_model(count, artists: list[Artist]):
+    def convert_to_artist_search_results_model(count, artists):
         results = {
             "count": count,
             "data": [{
