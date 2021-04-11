@@ -1,10 +1,10 @@
-from flask import render_template, request, flash, redirect, url_for, make_response
-from werkzeug.datastructures import MultiDict
+from flask import render_template, request, flash, redirect, url_for, make_response, session
 
 from app import app
 from data_access import db
 from data_access.repositories.VenuesRepository import VenuesRepository
 from forms.VenueForm import VenueForm
+from helpers import get_form_validation_errors, build_form_from_session
 
 
 @app.route('/venues')
@@ -28,7 +28,7 @@ def show_venue(venue_id):
 
 @app.route('/venues/create', methods=['GET'])
 def create_venue_form():
-    form = VenueForm()
+    form = build_form_from_session(VenueForm, 'venue_create_form_data')
     return render_template('forms/new_venue.html', form=form)
 
 
@@ -36,28 +36,35 @@ def create_venue_form():
 def create_venue_submission():
     form = VenueForm()
     if form.validate():
-        VenuesRepository(db).create_venue(form)
-        flash('Venue ' + request.form['name'] + ' was successfully listed!')
-        return redirect(url_for('index'))
-    flash('An error occurred. Venue ' + form.name.data + ' could not be listed.')
-    return render_template('forms/new_venue.html', form=form)
+        try:
+            VenuesRepository(db).create_venue(form)
+            flash('Venue {} was successfully listed!'.format(request.form['name']))
+            return redirect(url_for('index'))
+        except Exception as ex:
+            print(str(ex))
+            flash('An error occurred. Venue could not be listed.')
+            session['venue_create_form_data'] = request.form
+            return redirect(url_for('create_venue_form'))
+    error_message = get_form_validation_errors(form)
+    flash('An error occurred. Venue {} could not be listed. Errors: {}'.format(form.name.data, error_message))
+    session['venue_create_form_data'] = request.form
+    return redirect(url_for('create_venue_form'))
 
 
 @app.route('/venues/<int:venue_id>', methods=['DELETE'])
 def delete_venue(venue_id):
-    print("remove venue")
     try:
         VenuesRepository(db).delete_venue(venue_id)
-        return make_response('Venue with id: ' + str(venue_id) + ' was successfully deleted!', 200)
+        return make_response('Venue with id: {} was successfully deleted!'.format(venue_id), 200)
     except Exception as ex:
         print(str(ex))
-        return make_response('An error occurred. Venue with id: ' + str(venue_id) + ' could not be deleted.', 500)
+        return make_response('An error occurred. Venue with id: {} could not be deleted.'.format(venue_id), 500)
 
 
 @app.route('/venues/<int:venue_id>/edit', methods=['GET'])
 def edit_venue(venue_id):
     venue = VenuesRepository(db).get_venue_by_id(venue_id)
-    form = VenueForm(MultiDict(venue))
+    form = build_form_from_session(VenueForm, 'venue_edit_form_data', venue)
     return render_template('forms/edit_venue.html', form=form)
 
 
@@ -65,6 +72,16 @@ def edit_venue(venue_id):
 def edit_venue_submission(venue_id):
     form = VenueForm()
     if form.validate():
-        VenuesRepository(db).save_venue(venue_id, form)
-        return redirect(url_for('show_venue', venue_id=venue_id))
-    return render_template('forms/edit_venue.html', form=form)
+        try:
+            VenuesRepository(db).save_venue(venue_id, form)
+            flash('Venue was successfully updated!')
+            return redirect(url_for('show_venue', venue_id=venue_id))
+        except Exception as ex:
+            print(str(ex))
+            flash('An error occurred. Venue could not be listed.')
+            session['venue_edit_form_data'] = request.form
+            return redirect(url_for('edit_venue', venue_id = venue_id))
+    error_message = get_form_validation_errors(form)
+    flash('An error occurred. Venue {} could not be saved. Errors: {}'.format(form.name.data, error_message))
+    session['venue_edit_form_data'] = request.form
+    return redirect(url_for('edit_venue', venue_id = venue_id))

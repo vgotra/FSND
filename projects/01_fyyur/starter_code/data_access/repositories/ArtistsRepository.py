@@ -16,8 +16,8 @@ class ArtistsRepository:
 
     def get_artist_by_id(self, artist_id):
         artist = self.db.session.query(Artist) \
-            .join(Artist.city) \
-            .join(Artist.genres) \
+            .join(Artist.city, isouter=True) \
+            .join(Artist.genres, isouter=True) \
             .filter(Artist.id == artist_id).first()
 
         result = ArtistsConversion.convert_to_artist_model(artist)
@@ -25,9 +25,9 @@ class ArtistsRepository:
 
     def get_artist_with_shows_by_id(self, artist_id):
         artist = self.db.session.query(Artist) \
-            .join(Artist.city) \
-            .join(Artist.shows) \
-            .join(Artist.genres) \
+            .join(Artist.city, isouter=True) \
+            .join(Artist.shows, isouter=True) \
+            .join(Artist.genres, isouter=True) \
             .filter(Artist.id == artist_id).first()
 
         result = ArtistsConversion.convert_to_artist_with_shows_model(artist)
@@ -35,8 +35,8 @@ class ArtistsRepository:
 
     def search_artists(self, search_term):
         artists_query = self.db.session.query(Artist) \
-            .join(Artist.city) \
-            .join(Artist.shows) \
+            .join(Artist.city, isouter=True) \
+            .join(Artist.shows, isouter=True) \
             .filter(Artist.name.ilike("%{}%".format(search_term)))
 
         count = artists_query.count()
@@ -47,9 +47,9 @@ class ArtistsRepository:
 
     def save_artist(self, artist_id, artist):
         artist_db = self.db.session.query(Artist) \
-            .join(Artist.city) \
-            .join(Artist.shows) \
-            .join(Artist.genres) \
+            .join(Artist.city, isouter=True) \
+            .join(Artist.shows, isouter=True) \
+            .join(Artist.genres, isouter=True) \
             .filter(Artist.id == artist_id).first()
 
         artist_db.name = artist.name.data

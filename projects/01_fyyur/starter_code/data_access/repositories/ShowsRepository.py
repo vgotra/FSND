@@ -17,6 +17,7 @@ class ShowsRepository:
         new_show.artist_id = show.artist_id.data
         new_show.venue_id = show.venue_id.data
         new_show.start_time = show.start_time.data
+        print(new_show)
 
         self.db.session.add(new_show)
         self.db.session.commit()

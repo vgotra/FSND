@@ -11,6 +11,12 @@ class VenuesRepository:
     def __init__(self, db):
         self.db = db
 
+    def get_all_venues(self):
+        venues = self.db.session.query(Venue).order_by(Venue.name).all()
+
+        result = [{"id": venue.id, "name": venue.name} for venue in venues]
+        return result
+
     def get_venues_grouped_by_city(self):
         cities = self.db.session.query(City) \
             .join(City.venues, isouter=True) \
@@ -23,8 +29,8 @@ class VenuesRepository:
 
     def get_venue_by_id(self, venue_id):
         venue = self.db.session.query(Venue) \
-            .join(Venue.city) \
-            .join(Venue.genres) \
+            .join(Venue.city, isouter=True) \
+            .join(Venue.genres, isouter=True) \
             .filter(Venue.id == venue_id).first()
 
         result = VenuesConversion.convert_to_venue_model(venue)
@@ -32,9 +38,9 @@ class VenuesRepository:
 
     def get_venue_with_shows_by_id(self, venue_id):
         venue = self.db.session.query(Venue) \
-            .join(Venue.city) \
-            .join(Venue.shows) \
-            .join(Venue.genres) \
+            .join(Venue.city, isouter=True) \
+            .join(Venue.shows, isouter=True) \
+            .join(Venue.genres, isouter=True) \
             .filter(Venue.id == venue_id).first()
 
         result = VenuesConversion.convert_to_venue_with_shows_model(venue)
@@ -42,8 +48,8 @@ class VenuesRepository:
 
     def search_venues(self, search_term):
         venues_query = self.db.session.query(Venue) \
-            .join(Venue.city) \
-            .join(Venue.shows) \
+            .join(Venue.city, isouter=True) \
+            .join(Venue.shows, isouter=True) \
             .filter(Venue.name.ilike("%{}%".format(search_term)))
 
         count = venues_query.count()
@@ -53,7 +59,7 @@ class VenuesRepository:
         return result
 
     def save_venue(self, venue_id, venue):
-        venue_db = self.db.session.query(Venue).join(City).filter(Venue.id == venue_id).first()
+        venue_db = self.db.session.query(Venue).join(City, isouter=True).filter(Venue.id == venue_id).first()
 
         venue_db.name = venue.name.data
         venue_db.phone = venue.phone.data
