@@ -13,8 +13,8 @@ export class DrinkMenuPage implements OnInit {
   Object = Object;
 
   constructor(
-    private auth: AuthService,
-    private modalCtrl: ModalController,
+    public auth: AuthService,
+    public modalCtrl: ModalController,
     public drinks: DrinksService
     ) { }
 
@@ -22,7 +22,12 @@ export class DrinkMenuPage implements OnInit {
     this.drinks.getDrinks();
   }
 
-  async openForm(activedrink: Drink = null) {
+  async openForm(activedrink: Drink = {
+      id: -1,
+      title: '',
+      recipe: []
+    }) 
+    {
     if (!this.auth.can('get:drinks-detail')) {
       return;
     }

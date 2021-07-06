@@ -7,7 +7,11 @@ import { Drink } from 'src/app/services/drinks.service';
   styleUrls: ['./drink-graphic.component.scss'],
 })
 export class DrinkGraphicComponent implements OnInit {
-  @Input() drink: Drink;
+  @Input() drink: Drink = {
+    id: -1,
+    title: '',
+    recipe: []
+  };
 
   constructor() { }
 

@@ -1,0 +1,454 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Trivia API",
+    "description": "Trivia API for playing the quiz game",
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/api/categories": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Get categories",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categories"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/categories/{id}/questions": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Get questions by category id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Category id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Category id",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryQuestions"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/questions/{page}": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Get questions",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "description": "Page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Page",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Questions"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/questions/search/{search_term}": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Search questions",
+        "parameters": [
+          {
+            "name": "search_term",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionsSearch"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/questions": {
+      "post": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Create new question",
+        "requestBody": {
+          "description": "Request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/questions/{id}": {
+      "delete": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Delete question",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of question",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Id of question",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/quizzes": {
+      "post": {
+        "tags": [
+          "Quizzes"
+        ],
+        "summary": "Quizzes request",
+        "requestBody": {
+          "description": "Request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Quizzes"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Quizzes"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Quizzes"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Question"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string",
+            "description": "Category",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Category response"
+      },
+      "Categories": {
+        "type": "object",
+        "properties": {
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            },
+            "description": "Categories",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Categories response"
+      },
+      "Question": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id",
+            "format": "int32"
+          },
+          "question": {
+            "type": "string",
+            "description": "Question",
+            "nullable": true
+          },
+          "answer": {
+            "type": "string",
+            "description": "Answer",
+            "nullable": true
+          },
+          "category": {
+            "type": "integer",
+            "description": "Category",
+            "format": "int32"
+          },
+          "difficulty": {
+            "type": "integer",
+            "description": "Difficulty",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Question response"
+      },
+      "CategoryQuestions": {
+        "type": "object",
+        "properties": {
+          "total_questions": {
+            "type": "integer",
+            "description": "Total",
+            "format": "int32"
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            },
+            "description": "Questions",
+            "nullable": true
+          },
+          "current_category": {
+            "$ref": "#/components/schemas/Category"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Questions related to category response"
+      },
+      "Questions": {
+        "type": "object",
+        "properties": {
+          "total_questions": {
+            "type": "integer",
+            "description": "Total",
+            "format": "int32"
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            },
+            "description": "Questions",
+            "nullable": true
+          },
+          "current_category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            },
+            "description": "Categories",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Questions response"
+      },
+      "QuestionsSearch": {
+        "type": "object",
+        "properties": {
+          "total_questions": {
+            "type": "integer",
+            "description": "Total",
+            "format": "int32"
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            },
+            "description": "Questions",
+            "nullable": true
+          },
+          "current_category": {
+            "$ref": "#/components/schemas/Category"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Questions search response"
+      },
+      "QuestionRequest": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "Question",
+            "nullable": true
+          },
+          "answer": {
+            "type": "string",
+            "description": "Answer",
+            "nullable": true
+          },
+          "category": {
+            "type": "integer",
+            "description": "Category",
+            "format": "int32"
+          },
+          "difficulty": {
+            "type": "integer",
+            "description": "Difficulty",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Question create request"
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Success"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Result"
+      },
+      "QuizCategory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id of category",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Quiz category"
+      },
+      "Quizzes": {
+        "type": "object",
+        "properties": {
+          "previous_questions": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "description": "Array of ids of previous questions",
+            "nullable": true
+          },
+          "quiz_category": {
+            "$ref": "#/components/schemas/QuizCategory"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Quizzes request"
+      }
+    }
+  }
+}

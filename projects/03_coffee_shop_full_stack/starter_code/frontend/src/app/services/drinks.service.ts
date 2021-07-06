@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
+//import { AuthService } from '@auth0/auth0-angular';
 
 export interface Drink {
   id: number;
@@ -86,6 +87,8 @@ export class DrinksService {
     const header = {
       headers: new HttpHeaders()
         .set('Authorization',  `Bearer ${this.auth.activeJWT()}`)
+        .set('Access-Control-Allow-Origin', "*")
+        .set('Access-Control-Allow-Headers', "*")
     };
     return header;
   }

@@ -9,8 +9,12 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./drink-form.component.scss'],
 })
 export class DrinkFormComponent implements OnInit {
-  @Input() drink: Drink;
-  @Input() isNew: boolean;
+  @Input() drink: Drink = {
+    id: -1,
+    title: '',
+    recipe: []
+  };
+  @Input() isNew: boolean = false;
 
   constructor(
     public auth: AuthService,

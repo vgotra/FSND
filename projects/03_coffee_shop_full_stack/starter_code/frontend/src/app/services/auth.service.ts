@@ -15,7 +15,7 @@ export class AuthService {
   clientId = environment.auth0.clientId;
   callbackURL = environment.auth0.callbackURL;
 
-  token: string;
+  token: string = '';
   payload: any;
 
   constructor() { }
@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   load_jwts() {
-    this.token = localStorage.getItem(JWTS_LOCAL_KEY) || null;
+    this.token = (localStorage.getItem(JWTS_LOCAL_KEY) || null) as string;
     if (this.token) {
       this.decodeJWT(this.token);
     }
