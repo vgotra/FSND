@@ -5,7 +5,8 @@ from sqlalchemy import Column, String, Integer
 DATABASE_NAME = "trivia"
 db_username = os.getenv('TRIVIA_DB_USERNAME')
 db_password = os.getenv('TRIVIA_DB_PASSWORD')
-database_path = "postgresql://{}:{}@{}/{}".format(db_username, db_password, 'localhost:5432', DATABASE_NAME)
+database_path = "postgresql://{}:{}@{}/{}".format(
+    db_username, db_password, 'localhost:5432', DATABASE_NAME)
 
 db = SQLAlchemy()
 

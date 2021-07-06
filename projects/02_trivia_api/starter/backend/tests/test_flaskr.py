@@ -1,10 +1,13 @@
 import os
+import sys
 import unittest
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from flask import json
 from flask_sqlalchemy import SQLAlchemy
 
 from app import app
-from database_models import setup_db, Question, Category
+from data_access.database_models import setup_db, Question, Category
 
 
 class TriviaTestCase(unittest.TestCase):
@@ -14,7 +17,8 @@ class TriviaTestCase(unittest.TestCase):
         self.db_username = os.getenv('TRIVIA_DB_USERNAME')
         self.db_password = os.getenv('TRIVIA_DB_PASSWORD')
         self.database_name = "trivia_test"
-        self.database_path = "postgresql://{}:{}@{}/{}".format(self.db_username, self.db_password, 'localhost:5432', self.database_name)
+        self.database_path = "postgresql://{}:{}@{}/{}".format(
+            self.db_username, self.db_password, 'localhost:5432', self.database_name)
 
     def create_test_entities(self):
         category = Category("Category")
@@ -47,29 +51,59 @@ class TriviaTestCase(unittest.TestCase):
         """Test: Get all categories - Success"""
         res = self.client().get('/api/categories')
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.json, {'categories': [{'id': 1, 'type': 'Category'}]})
+        self.assertEqual(
+            res.json, {'categories': [{'id': 1, 'type': 'Category'}]})
 
     def test_category_questions_by_category_id(self):
         """Test: Get questions by category id - Success"""
         res = self.client().get('/api/categories/1/questions')
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.json, {'current_category': {'id': 1, 'type': 'Category'}, 'questions': [{'answer': 'Answer', 'category': 1, 'difficulty': 1, 'id': 1, 'question': 'Question'}], 'total_questions': 1})
+        self.assertEqual(res.json,
+                         {'current_category': {'id': 1,
+                          'type': 'Category'},
+                          'questions': [{'answer': 'Answer',
+                                         'category': 1,
+                                         'difficulty': 1,
+                                         'id': 1,
+                                         'question': 'Question'}],
+                             'total_questions': 1})
 
     def test_questions_all(self):
         """Test: Get all questions - Success"""
-        res = self.client().get('/api/questions/1') #TODO Add 405 error
+        res = self.client().get('/api/questions/1')  # TODO Add 405 error
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.json, {'categories': [{'id': 1, 'type': 'Category'}], 'current_category': {}, 'questions': [{'answer': 'Answer', 'category': 1, 'difficulty': 1, 'id': 1, 'question': 'Question'}], 'total_questions': 1})
+        self.assertEqual(res.json,
+                         {'categories': [{'id': 1,
+                                          'type': 'Category'}],
+                          'current_category': {},
+                          'questions': [{'answer': 'Answer',
+                                         'category': 1,
+                                         'difficulty': 1,
+                                         'id': 1,
+                                         'question': 'Question'}],
+                             'total_questions': 1})
 
     def test_questions_search(self):
         """Test: Search questions - Success"""
         res = self.client().get('/api/questions/search/question')
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.json, {'current_category': {}, 'questions': [{'answer': 'Answer', 'category': 1, 'difficulty': 1, 'id': 1, 'question': 'Question'}], 'total_questions': 1})
+        self.assertEqual(res.json,
+                         {'current_category': {},
+                          'questions': [{'answer': 'Answer',
+                                         'category': 1,
+                                         'difficulty': 1,
+                                         'id': 1,
+                                         'question': 'Question'}],
+                             'total_questions': 1})
 
     def test_questions_add(self):
         """Test: Add question - Success"""
-        res = self.client().post('/api/questions', data=json.dumps(dict({'question': 'Question', 'answer': 'Answer', 'category': 1, 'difficulty': 1})), content_type='application/json')
+        res = self.client().post('/api/questions',
+                                 data=json.dumps(dict({'question': 'Question',
+                                                       'answer': 'Answer',
+                                                       'category': 1,
+                                                       'difficulty': 1})),
+                                 content_type='application/json')
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.json, {'success': True})
 
@@ -81,7 +115,10 @@ class TriviaTestCase(unittest.TestCase):
 
     def test_quizzes(self):
         """Test: Get quizzes - Success"""
-        res = self.client().post('/api/quizzes', data=json.dumps(dict({'previous_questions': [], 'quiz_category': {'id': 1}})), content_type='application/json')
+        res = self.client().post('/api/quizzes',
+                                 data=json.dumps(dict({'previous_questions': [],
+                                                       'quiz_category': {'id': 1}})),
+                                 content_type='application/json')
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.json, {'question': {
                          'answer': 'Answer', 'category': 1, 'difficulty': 1, 'id': 1, 'question': 'Question'}})
