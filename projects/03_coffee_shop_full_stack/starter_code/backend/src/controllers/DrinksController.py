@@ -5,12 +5,11 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from flask import Flask, request, jsonify, abort
 
 from api import app
-
 from data_access.models import db_drop_and_create_all, setup_db, Drink
-
-# TODO Permissions
+from services.auth import requires_auth
 
 @app.route('/drinks', methods=['GET'])
+@requires_auth('get:drinks-detail')
 def drinks_get():
     drinks = [drunk.short() for drunk in Drink.query.all()]
     return jsonify({"success": True, "drinks": drinks})
