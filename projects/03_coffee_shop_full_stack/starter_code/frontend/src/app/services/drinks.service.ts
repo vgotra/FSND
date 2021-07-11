@@ -3,143 +3,85 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
-//import { AuthService } from '@auth0/auth0-angular';
+import { ToastController } from '@ionic/angular';
 
 export interface Drink {
   id: number;
   title: string;
   recipe: Array<{
-          name: string,
-          color: string,
-          parts: number
-        }>;
+    name: string,
+    color: string,
+    parts: number
+  }>;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class DrinksService {
-
   url = environment.apiServerUrl;
+  public items: { [key: number]: Drink } = {};
 
-  public items: {[key: number]: Drink} = {};
-  // = {
-  //                             1: {
-  //                             id: 1,
-  //                             title: 'matcha shake',
-  //                             recipe: [
-  //                                   {
-  //                                     name: 'milk',
-  //                                     color: 'grey',
-  //                                     parts: 1
-  //                                   },
-  //                                   {
-  //                                     name: 'matcha',
-  //                                     color: 'green',
-  //                                     parts: 3
-  //                                   },
-  //                                 ]
-  //                           },
-  //                           2: {
-  //                             id: 2,
-  //                             title: 'flatwhite',
-  //                             recipe: [
-
-  //                                   {
-  //                                     name: 'milk',
-  //                                     color: 'grey',
-  //                                     parts: 3
-  //                                   },
-  //                                   {
-  //                                     name: 'coffee',
-  //                                     color: 'brown',
-  //                                     parts: 1
-  //                                   },
-  //                                 ]
-  //                           },
-  //                           3: {
-  //                             id: 3,
-  //                             title: 'cap',
-  //                             recipe: [
-  //                                   {
-  //                                     name: 'foam',
-  //                                     color: 'white',
-  //                                     parts: 1
-  //                                   },
-  //                                   {
-  //                                     name: 'milk',
-  //                                     color: 'grey',
-  //                                     parts: 2
-  //                                   },
-  //                                   {
-  //                                     name: 'coffee',
-  //                                     color: 'brown',
-  //                                     parts: 1
-  //                                   },
-  //                                 ]
-  //                           }
-  //   };
-
-
-  constructor(private auth: AuthService, private http: HttpClient) { }
+  constructor(private auth: AuthService, private http: HttpClient, public toastController: ToastController) { }
 
   getHeaders() {
-    const header = {
-      headers: new HttpHeaders()
-        .set('Authorization',  `Bearer ${this.auth.activeJWT()}`)
-        .set('Access-Control-Allow-Origin', "*")
-        .set('Access-Control-Allow-Headers', "*")
-    };
-    return header;
+    return { headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.activeJWT()}`) };
   }
 
   getDrinks() {
-    if (this.auth.can('get:drinks-detail')) {
-      this.http.get(this.url + '/drinks-detail', this.getHeaders())
-      .subscribe((res: any) => {
-        this.drinksToItems(res.drinks);
-        console.log(res);
-      });
-    } else {
-      this.http.get(this.url + '/drinks', this.getHeaders())
-      .subscribe((res: any) => {
-        this.drinksToItems(res.drinks);
-        console.log(res);
-      });
-    }
-
+    const url = `${this.url}${this.auth.can('get:drinks-detail') ? '/drinks-detail' : '/drinks'}`;
+    this.http.get(url, this.getHeaders())
+    .subscribe((res: any) => {
+      if (res.success) {
+        for (const drink of res.drinks) {
+          this.items[drink.id] = drink;
+        }
+      }
+    },
+    error => this.showToast(true, error.error.message));
   }
 
   saveDrink(drink: Drink) {
     if (drink.id >= 0) { // patch
       this.http.patch(this.url + '/drinks/' + drink.id, drink, this.getHeaders())
-      .subscribe( (res: any) => {
-        if (res.success) {
-          this.drinksToItems(res.drinks);
-        }
-      });
+        .subscribe((res: any) => {
+          if (res.success) {
+            this.items[drink.id] = res.drink;
+            this.showToast(false, 'Drink updated');
+          }
+        },
+        error => this.showToast(true, error.error.message));
     } else { // insert
       this.http.post(this.url + '/drinks', drink, this.getHeaders())
-      .subscribe( (res: any) => {
-        if (res.success) {
-          this.drinksToItems(res.drinks);
-        }
-      });
+        .subscribe((res: any) => {
+          if (res.success) {
+            this.items[res.drink.id] = res.drink;
+            this.showToast(false, 'Drink created');
+          }
+        },
+        error => this.showToast(true, error.error.message));
     }
 
   }
 
   deleteDrink(drink: Drink) {
-    delete this.items[drink.id];
     this.http.delete(this.url + '/drinks/' + drink.id, this.getHeaders())
-    .subscribe( (res: any) => {
-
-    });
+      .subscribe((res: any) => {
+        if (res.success) {
+          delete this.items[res.id];
+          this.showToast(false, 'Drink deleted');
+        }
+      },
+      error => this.showToast(true, error.error.message));
   }
 
-  drinksToItems( drinks: Array<Drink>) {
-    for (const drink of drinks) {
-      this.items[drink.id] = drink;
-    }
+  async showToast(isError: boolean, message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      color: isError ? "danger" : "success",
+      position: 'middle',
+      duration: 2000
+    });
+    toast.present();
   }
 }

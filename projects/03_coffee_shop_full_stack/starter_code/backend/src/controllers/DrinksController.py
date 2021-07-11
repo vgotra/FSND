@@ -1,60 +1,64 @@
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-from flask import Flask, request, jsonify, abort
-
+from services.AuthService import requires_auth
+from data_access.DatabaseModels import Drink
 from api import app
-from data_access.models import db_drop_and_create_all, setup_db, Drink
-from services.auth import requires_auth
+from flask import request, jsonify
+from errors.ApiError import ApiError
 
-@app.route('/drinks', methods=['GET'])
-@requires_auth('get:drinks-detail')
+
+@app.route('/api/drinks', methods=['GET'])
 def drinks_get():
     drinks = [drunk.short() for drunk in Drink.query.all()]
-    return jsonify({"success": True, "drinks": drinks})
+    return jsonify({"success": True, "drinks": drinks}), 200
 
-@app.route('/drinks-detail', methods=['GET'])
+
+@app.route('/api/drinks-detail', methods=['GET'])
+@requires_auth('get:drinks-detail')
 def drinks_get_detail():
     drinks = [drunk.long() for drunk in Drink.query.all()]
-    return jsonify({"success": True, "drinks": drinks})
+    return jsonify({"success": True, "drinks": drinks}), 200
 
-@app.route('/drinks', methods=['POST'])
+
+@app.route('/api/drinks', methods=['POST'])
+@requires_auth('post:drinks')
 def drinks_create():
-    drinks = [drunk.short() for drunk in Drink.query.all()]
-    return jsonify({"success": True, "drinks": drinks[0]}) # TODO returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the newly created drink
+    request_json = request.get_json()
+    title = request_json['title']
+    drink = Drink(title=title)
+    if request_json.get('recipe'):
+        recipe = request_json['recipe']
+        if not (isinstance(recipe, list)):
+            raise ApiError("Recipe should be array of recipes", 400)
+        drink = Drink(title=title, recipe=str(recipe).replace("\'", "\""))
+    drink.insert()
+    return jsonify({"success": True, "drink": drink.long()}), 201
 
 
-'''
-@TODO implement endpoint
-    PATCH /drinks/<id>
-        where <id> is the existing model id
-        it should respond with a 404 error if <id> is not found
-        it should update the corresponding row for <id>
-        it should require the 'patch:drinks' permission
-        it should contain the drink.long() data representation
-    returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the updated drink
-        or appropriate status code indicating reason for failure
-'''
-
-
-@app.route('/drinks/<int:id>', methods=['PATCH'])
+@app.route('/api/drinks/<int:id>', methods=['PATCH'])
+@requires_auth('patch:drinks')
 def drinks_update(id):
-    pass
+    drink = Drink.query.filter(Drink.id == id).first()
+    if not (drink):
+        raise ApiError("Drink is not found", 404)
+    request_json = request.get_json()
+    title = request_json['title']
+    drink.title = title
+    if request_json.get('recipe'):
+        recipe = request_json['recipe']
+        if not (isinstance(recipe, list)):
+            raise ApiError("Recipe should be array of recipes", 400)
+        drink.recipe = str(recipe).replace("\'", "\"")
+    drink.update()
+    return jsonify({"success": True, "drink": drink.long()}), 200
 
 
-'''
-@TODO implement endpoint
-    DELETE /drinks/<id>
-        where <id> is the existing model id
-        it should respond with a 404 error if <id> is not found
-        it should delete the corresponding row for <id>
-        it should require the 'delete:drinks' permission
-    returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
-        or appropriate status code indicating reason for failure
-'''
-
-
-@app.route('/drinks/<int:id>', methods=['DELETE'])
+@app.route('/api/drinks/<int:id>', methods=['DELETE'])
+@requires_auth('delete:drinks')
 def drinks_delete(id):
-    pass
+    drink = Drink.query.filter(Drink.id == id).first()
+    if not (drink):
+        raise ApiError("Drink is not found", 404)
+    drink.delete()
+    return jsonify({"success": True, "id": id}), 200

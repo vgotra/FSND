@@ -25,7 +25,7 @@ export class DrinkMenuPage implements OnInit {
   async openForm(activedrink: Drink = {
       id: -1,
       title: '',
-      recipe: []
+      recipe: [{name: '', color: 'white', parts: 1}]
     }) 
     {
     if (!this.auth.can('get:drinks-detail')) {

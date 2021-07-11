@@ -30,7 +30,7 @@ export class DrinkFormComponent implements OnInit {
         recipe: []
       };
       this.addIngredient();
-    }
+    }    
   }
 
   customTrackBy(index: number, obj: any): any {
