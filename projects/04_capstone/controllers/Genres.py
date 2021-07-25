@@ -11,3 +11,6 @@ class Genres(Resource):
             {"id": 1, "name": "Mystery"},
             {"id": 2, "name": "Crime"}
         ])
+
+    def put(self):
+        pass

@@ -11,3 +11,6 @@ class Movies(Resource):
             {"id": 1, "name": "The Usual Suspects"},
             {"id": 2, "name": "The Matrix"}
         ])
+
+    def put(self):
+        pass

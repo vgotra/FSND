@@ -6,6 +6,9 @@
 **/.pytest_cache
 **/node_modules
 **/*.user
+**/.env_file
+**/*.pyc
+**/*.pyo
 
 # OS generated files #
 ######################

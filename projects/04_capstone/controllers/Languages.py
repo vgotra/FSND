@@ -11,3 +11,6 @@ class Languages(Resource):
             {"id": 1, "name": "Ukrainian"},
             {"id": 2, "name": "English"}
         ])
+
+    def put(self):
+        pass

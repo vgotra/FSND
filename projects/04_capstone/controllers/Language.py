@@ -8,11 +8,8 @@ class Languages(Resource):
     def get(self, id):
         return jsonify({"id": 1, "name": "Ukrainian"})
 
-    def post(self):
+    def post(self, id):
         pass
 
-    def put(self):
-        pass
-
-    def delete(self):
+    def delete(self, id):
         pass

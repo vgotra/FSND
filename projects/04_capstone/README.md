@@ -20,25 +20,25 @@ python -m virtualenv env
 
 1. Initialize and activate a virtualenv using (according to previous steps explained in README) and install the dependencies:
 
+- MacOS/Linux
+
 ```shell
 pip install -r requirements.txt
 ```
 
-2. Create a database in PostgreSQL with username and login specified in connection string can be found in **config.py**
+- Windows
 
-3. Apply database migrations to database:
-
-```shell
-flask db migrate
+```powershell
+pip install -r requirements.txt
 ```
 
-4. Run the development server:
+2. Run the development server:
 
 - MacOS/Linux
 
 ```shell
 export FLASK_APP=app
-export FLASK_ENV=development # enables debug mode
+export FLASK_ENV=development
 python3 app.py
 ```
 
@@ -51,4 +51,4 @@ python .\app.py
 
 ## References
 
-- [Blueprints and views](https://flask.palletsprojects.com/en/2.0.x/tutorial/views/#blueprints-and-views)
+- [Flask-RestPlus](https://flask-restplus.readthedocs.io/)

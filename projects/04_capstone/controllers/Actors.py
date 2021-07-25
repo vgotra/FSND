@@ -10,3 +10,6 @@ class Actors(Resource):
             {"id": 1, "name": "Kevin Spacey"},
             {"id": 2, "name": "Keanu Reeves"}
         ])
+
+    def put(self):
+        pass
