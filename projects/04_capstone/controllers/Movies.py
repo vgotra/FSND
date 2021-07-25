@@ -1,5 +1,5 @@
 from flask import jsonify
-from flask_restplus import Resource, Namespace, fields
+from flask_restplus import Resource, Namespace
 
 ns = Namespace('movies', description='Movies operations')
 
