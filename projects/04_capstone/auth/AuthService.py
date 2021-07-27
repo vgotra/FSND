@@ -6,7 +6,7 @@ from jose import jwt
 from AuthError import AuthError
 
 
-AUTH0_DOMAIN = '<client-app>'
+AUTH0_DOMAIN = 'dev-fsnd-capstone-agency.eu.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'https://fsnd-capstone-agency.herokuapp.com'
 
