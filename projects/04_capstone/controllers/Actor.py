@@ -8,7 +8,7 @@ class Actor(Resource):
     def get(self, id):
         return jsonify({"id": 1, "name": "Kevin Spacey"})
 
-    def post(self, id):
+    def patch(self, id):
         pass
 
     def delete(self, id):

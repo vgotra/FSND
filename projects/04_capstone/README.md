@@ -52,3 +52,4 @@ python .\app.py
 ## References
 
 - [Flask-RestPlus](https://flask-restplus.readthedocs.io/)
+- [Python API: Authorization](https://auth0.com/docs/quickstart/backend/python/01-authorization)

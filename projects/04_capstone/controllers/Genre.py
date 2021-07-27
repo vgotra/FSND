@@ -8,7 +8,7 @@ class Genre(Resource):
     def get(self, id):
         return jsonify({"id": 1, "name": "Mystery"})
 
-    def post(self, id):
+    def patch(self, id):
         pass
 
     def delete(self, id):

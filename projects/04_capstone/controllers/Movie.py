@@ -8,7 +8,7 @@ class Movie(Resource):
     def get(self, id):
         return jsonify({"id": 1, "name": "The Usual Suspects"})
 
-    def post(self, id):
+    def patch(self, id):
         pass
 
     def delete(self, id):
