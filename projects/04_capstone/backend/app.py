@@ -17,7 +17,7 @@ from controllers.Language import ns as Language
 
 app = Flask(__name__)
 CORS(app)
-api = Api(app, version='1.0', title='Capstone Agency API', description='A Capstone Agency API')
+api = Api(app, version='1.0', title='Capstone Agency API', description='A Capstone Agency API', doc='/docs')
 
 api.add_namespace(Movies)
 api.add_namespace(Movie)
