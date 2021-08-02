@@ -2,7 +2,7 @@ from data_access import db
 
 
 class Actor(db.Model):
-    __tablename__ = 'Actors'
+    __tablename__ = "Actors"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))

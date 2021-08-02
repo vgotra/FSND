@@ -5,12 +5,12 @@ from data_access.entities.MovieLanguage import movie_language_table
 
 
 class Movie(db.Model):
-    __tablename__ = 'Movies'
+    __tablename__ = "Movies"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     description = db.Column(db.String)
     release_date = db.Column(db.DateTime)
     release_country = db.Column(db.String(50))
-    genres = db.relationship("Genre", secondary=movie_genre_table, back_populates="movies", lazy='joined')
-    languages = db.relationship("Language", secondary=movie_language_table, back_populates="movies", lazy='joined')
+    genres = db.relationship("Genre", secondary=movie_genre_table, back_populates="movies", lazy="joined")
+    languages = db.relationship("Language", secondary=movie_language_table, back_populates="movies", lazy="joined")

@@ -1,16 +1,14 @@
 from flask import jsonify
 from flask_restplus import Resource, Namespace, fields
 
-ns = Namespace('genres', description='Genres operations')
+ns = Namespace("genres", description="Genres operations")
 
-@ns.route('/')
+
+@ns.route("/")
 class Genres(Resource):
-    @ns.doc('List all genres')
+    @ns.doc("List all genres")
     def get(self):
-        return jsonify([
-            {"id": 1, "name": "Mystery"},
-            {"id": 2, "name": "Crime"}
-        ])
+        return jsonify([{"id": 1, "name": "Mystery"}, {"id": 2, "name": "Crime"}])
 
     def put(self):
         pass
