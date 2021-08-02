@@ -86,9 +86,21 @@
           "options": {
             "browserTarget": "capstone:build"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "capstone"
+  "defaultProject": "capstone",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
