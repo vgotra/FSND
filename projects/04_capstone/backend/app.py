@@ -5,7 +5,7 @@ import flask.scaffold
 
 flask.helpers._endpoint_from_view_func = flask.scaffold._endpoint_from_view_func
 from flask_restplus import Api
-from flask import Flask, redirect
+from flask import Flask, render_template
 from flask_cors import CORS
 
 from controllers.Movies import ns as Movies
@@ -34,7 +34,7 @@ api.add_namespace(Language)
 
 @app.route("/")
 def hello():
-    return redirect("/docs", code=302)
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
