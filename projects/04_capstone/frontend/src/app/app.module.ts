@@ -18,6 +18,14 @@ import { MoviesStoreService } from './pages/movies/movies.store.service';
 import { MovieStoreService } from './pages/movie/movie.store.service';
 import { MovieComponent } from './pages/movie/movie.component';
 import { MoviesComponent } from './pages/movies/movies.component';
+import { GenreComponent } from './pages/genre/genre.component';
+import { GenreStoreService } from './pages/genre/genre.store.service';
+import { GenresComponent } from './pages/genres/genres.component';
+import { GenresStoreService } from './pages/genres/genres.store.service';
+import { LanguageComponent } from './pages/language/language.component';
+import { LanguageStoreService } from './pages/language/language.store.service';
+import { LanguagesComponent } from './pages/languages/languages.component';
+import { LanguagesStoreService } from './pages/languages/languages.store.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +33,11 @@ import { MoviesComponent } from './pages/movies/movies.component';
     ActorsComponent,
     ActorComponent,
     MoviesComponent,
-    MovieComponent
+    MovieComponent,
+    GenresComponent,
+    GenreComponent,
+    LanguagesComponent,
+    LanguageComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +56,10 @@ import { MoviesComponent } from './pages/movies/movies.component';
     ActorStoreService,
     MoviesStoreService,
     MovieStoreService,
+    GenresStoreService,
+    GenreStoreService,
+    LanguagesStoreService,
+    LanguageStoreService,
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
