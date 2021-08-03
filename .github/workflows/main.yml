@@ -28,7 +28,7 @@ jobs:
           cd ./projects/04_capstone/frontend
           pwd
           npm ci
-          npm run ng build --deploy-url /static/
+          npm run ng build -- --deploy-url /static
       
       # Copy static files to backend folder
       - name: Copy static files
@@ -48,3 +48,9 @@ jobs:
         run: |
           cd ../backend
           pip install -r requirements.txt
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: ../dist
