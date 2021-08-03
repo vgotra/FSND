@@ -27,6 +27,8 @@ jobs:
       
       - name: Copy static files
         run: | 
+          pwd
+          ls
           cp -r ./dist/capstone/* ../backend/static
           cp ./dist/capstone/index.html ../backend/templates
           rm ../backend/static/index.html
