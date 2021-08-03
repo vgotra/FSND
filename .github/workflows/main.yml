@@ -3,11 +3,9 @@ name: CI For Capstone
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+    
   workflow_dispatch:
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,8 +25,7 @@ jobs:
       
       - name: Copy static files
         run: | 
-          pwd
-          ls
+          cd ./projects/04_capstone/frontend
           cp -r ./dist/capstone/* ../backend/static
           cp ./dist/capstone/index.html ../backend/templates
           rm ../backend/static/index.html
@@ -40,7 +37,7 @@ jobs:
           
       - name: Instal requirements
         run: |
-          cd ../backend
+          cd ./projects/04_capstone/backend
           pip install -r requirements.txt
 
       - name: Archive production artifacts
