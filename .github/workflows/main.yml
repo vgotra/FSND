@@ -1,0 +1,56 @@
+name: CI For Capstone
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - uses: actions/checkout@v2
+      
+      # Use Node.js
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      
+      # Install Angular and build
+      - name: Build Angular project
+        run: |
+          pwd
+          cd ./projects/04_capstone/frontend
+          pwd
+          npm ci
+          npm run ng build -- --deploy-url /static
+      
+      # Copy static files to backend folder
+      - name: Copy static files
+        run: | 
+          cp -r ./dist ../backend/static
+          cp ./dist/index.html ../backend/templates
+          rm ../backend/static/index.html
+      
+      # Setup python
+      - name: Setup Python
+        uses: actions/setup-python@v2.2.2
+        with:
+          python-version: '3.x'
+          
+      # Install requirements
+      - name: Instal requirements
+        run: |
+          cd ../backend
+          pip install -r requirements.txt
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: ../dist
