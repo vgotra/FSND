@@ -23,17 +23,17 @@ jobs:
       
       # Install Angular and build
       - name: Build Angular project
-      - run: pwd
-      - run: cd ./projects/04_capstone/frontend
-      - run: pwd
-      - run: npm ci
-      - run: ng build --deploy-url /static/
+        run: pwd
+        run: cd ./projects/04_capstone/frontend
+        run: pwd
+        run: npm ci
+        run: ng build --deploy-url /static/
       
       # Copy static files to backend folder
       - name: Copy static files
-      - run: cp -r ./dist ../backend/static
-      - run: cp ./dist/index.html ../backend/templates
-      - run: rm ../backend/static/index.html
+        run: cp -r ./dist ../backend/static
+        run: cp ./dist/index.html ../backend/templates
+        run: rm ../backend/static/index.html
       
       # Setup python
       - name: Setup Python
@@ -43,5 +43,5 @@ jobs:
           
       # Install requirements
       - name: Instal requirements
-      - run: cd ../backend
-      - run: pip install -r requirements.txt
+        run: cd ../backend
+        run: pip install -r requirements.txt
