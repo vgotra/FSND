@@ -1,4 +1,4 @@
-name: CI
+name: CI For Capstone
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
       # Install Angular and build
       - name: Build Angular project
       - run: pwd
-      - run: cd ./frontend
+      - run: cd ./projects/04_capstone/frontend
       - run: pwd
       - run: npm ci
       - run: ng build --deploy-url /static/
