@@ -28,7 +28,7 @@ jobs:
           cd ./projects/04_capstone/frontend
           pwd
           npm ci
-          ng build --deploy-url /static/
+          npm run ng build --deploy-url /static/
       
       # Copy static files to backend folder
       - name: Copy static files
