@@ -37,4 +37,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dist
-          path: projects/04_capstone/backend
+          path: |
+            projects/04_capstone/backend
+            !dist/**/*.[md,toml,ignore]
