@@ -5,7 +5,7 @@ ns = Namespace("genres", description="Genres operations")
 
 
 @ns.route("/<int:id>")
-class Genre(Resource):
+class GenreController(Resource):
     def get(self, id):
         return jsonify({"id": 1, "name": "Mystery"})
 

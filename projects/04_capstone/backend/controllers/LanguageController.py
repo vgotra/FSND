@@ -5,7 +5,7 @@ ns = Namespace("languages", description="Languages operations")
 
 
 @ns.route("/<int:id>")
-class Languages(Resource):
+class LanguagesController(Resource):
     def get(self, id):
         return jsonify({"id": 1, "name": "Ukrainian"})
 

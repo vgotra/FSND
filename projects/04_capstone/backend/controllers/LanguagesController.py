@@ -5,7 +5,7 @@ ns = Namespace("languages", description="Languages operations")
 
 
 @ns.route("/")
-class Languages(Resource):
+class LanguagesController(Resource):
     @ns.doc("List all languages")
     def get(self):
         return jsonify([{"id": 1, "name": "Ukrainian"}, {"id": 2, "name": "English"}])

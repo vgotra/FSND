@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 ```powershell
 python -m virtualenv env
-.\env\bin\activate.ps1
+.\env\Scripts\activate.ps1
 pip install -r requirements.txt
 ```
 

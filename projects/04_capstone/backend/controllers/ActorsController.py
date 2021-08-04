@@ -6,7 +6,7 @@ ns = Namespace("actors", description="Actors operations")
 
 
 @ns.route("/")
-class Actors(Resource):
+class ActorsController(Resource):
     def get(self):
         return jsonify(
             [

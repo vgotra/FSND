@@ -5,7 +5,7 @@ ns = Namespace("movies", description="Movies operations")
 
 
 @ns.route("/")
-class Movies(Resource):
+class MoviesController(Resource):
     @ns.doc("List all movies")
     def get(self):
         return jsonify([{"id": 1, "name": "The Usual Suspects"}, {"id": 2, "name": "The Matrix"}])
