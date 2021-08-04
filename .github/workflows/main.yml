@@ -24,12 +24,11 @@ jobs:
           cd ./projects/04_capstone/frontend
           cp -r ./dist/capstone/* ../backend/static
           cp ./dist/capstone/index.html ../backend/templates
-          rm ../backend/static/index.html      
-      - name: Setup Python
-        uses: actions/setup-python@v2.2.2
+          rm ../backend/static/index.html
+      - name: Deploy changes to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12 
         with:
-          python-version: '3.x'
-      - name: Instal requirements
-        run: |
-          cd ./projects/04_capstone/backend
-          pip install -r requirements.txt          
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "fsnd-capstone-agency"
+          heroku_email: ${{secrets.HEROKU_USER_EMAIL}}
+          appdir: "/projects/04_capstone/backend"
