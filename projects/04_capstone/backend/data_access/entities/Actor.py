@@ -6,7 +6,7 @@ class Actor(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    birthday = db.Column(db.Datetime)
+    birthday = db.Column(db.Date)
     sex = db.Column(db.Boolean)
     profile_url = db.Column(db.String(300))
     photo_url = db.Column(db.String(300))

@@ -9,8 +9,8 @@ class Movie(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    description = db.Column(db.String)
-    release_date = db.Column(db.DateTime)
+    description = db.Column(db.String(300))
+    release_date = db.Column(db.Date)
     release_country = db.Column(db.String(50))
     genres = db.relationship("Genre", secondary=movie_genre_table, back_populates="movies", lazy="joined")
     languages = db.relationship("Language", secondary=movie_language_table, back_populates="movies", lazy="joined")
