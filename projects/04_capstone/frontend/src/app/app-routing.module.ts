@@ -8,8 +8,10 @@ import { LanguageComponent } from './pages/language/language.component';
 import { LanguagesComponent } from './pages/languages/languages.component';
 import { MovieComponent } from './pages/movie/movie.component';
 import { MoviesComponent } from './pages/movies/movies.component';
+import { NotFoundComponent } from './common/components/not-found/not-found.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/actors', pathMatch: 'full' },
   { path: 'actors', component: ActorsComponent },
   { path: 'actors/:id', component: ActorComponent },
   { path: 'movies', component: MoviesComponent },
@@ -17,7 +19,8 @@ const routes: Routes = [
   { path: 'genres', component: GenresComponent },
   { path: 'genres/:id', component: GenreComponent },
   { path: 'languages', component: LanguagesComponent },
-  { path: 'languages/:id', component: LanguageComponent }
+  { path: 'languages/:id', component: LanguageComponent },
+  { path: '**', component: NotFoundComponent }  // Wildcard route for a 404 page
 ];
 
 @NgModule({

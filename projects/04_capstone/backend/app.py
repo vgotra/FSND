@@ -32,9 +32,13 @@ api.add_namespace(LanguagesController)
 api.add_namespace(LanguageController)
 
 
-@app.route("/")
-def hello():
-    return render_template("index.html")
+@app.route("/", defaults={"route": None})
+@app.route("/<route>")
+def index(route):
+    if route:
+        return render_template("index.html", route=route)
+    else:
+        return render_template("index.html")
 
 
 if __name__ == "__main__":

@@ -26,6 +26,7 @@ import { LanguageComponent } from './pages/language/language.component';
 import { LanguageStoreService } from './pages/language/language.store.service';
 import { LanguagesComponent } from './pages/languages/languages.component';
 import { LanguagesStoreService } from './pages/languages/languages.store.service';
+import { NotFoundComponent } from './common/components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { LanguagesStoreService } from './pages/languages/languages.store.service
     GenresComponent,
     GenreComponent,
     LanguagesComponent,
-    LanguageComponent
+    LanguageComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
