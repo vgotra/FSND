@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from backend.schemas.ActorSchema import ActorSchema
-from flask import jsonify
+from flask import request
 from flask_restplus import Resource, Namespace
 from datetime import datetime
 
@@ -19,4 +19,8 @@ class ActorsController(Resource):
         return ActorSchema().dump(actors, many=True)
 
     def put(self):
+        json_data = request.get_json()
+        actor = ActorSchema().load(json_data) # Add validation error
+        print("actors/put:")
+        print(actor)
         pass
