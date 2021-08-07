@@ -3,7 +3,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from backend.schemas.MovieSchema import MovieSchema
+from schemas.MovieSchema import MovieSchema
 from flask import request
 from flask_restx import Resource
 from models.MovieModels import ns, movie_get, movie_patch

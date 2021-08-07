@@ -4,14 +4,14 @@ from data_access.entities.Language import Language
 class LanguagesRepository:
     def __init__(self, db):
         self.db = db
+        self.per_page = 10
 
-    def get_all(self, search_phrase):
+    def get_all(self, page=1, search_phrase=None):
         languages_query = self.db.session.query(Language).order_by(Language.id)
         if search_phrase:
             languages_query = languages_query.filter(Language.name.ilike("%{}%".format(search_phrase)))
-        count = languages_query.count()
-        languages = languages_query.all()
-        return (count, languages)
+        languages = languages_query.paginate(page, self.per_page, error_out=False)
+        return languages
 
     def get(self, id):
         language = self.db.session.query(Language).filter(Language.id == id).first()

@@ -4,13 +4,13 @@ from data_access.entities.Actor import Actor
 class ActorsRepository:
     def __init__(self, db):
         self.db = db
+        self.per_page = 10
 
-    def get_all(self, search_phrase):
+    def get_all(self, page=1, search_phrase=None):
         actors_query = self.db.session.query(Actor).order_by(Actor.id)
         if search_phrase:
             actors_query = actors_query.filter(Actor.name.ilike("%{}%".format(search_phrase)))
-        count = actors_query.count()
-        actors = actors_query.all()
+        actors = actors_query.paginate(page, self.per_page, error_out=False)
         return actors
 
     def get(self, id):

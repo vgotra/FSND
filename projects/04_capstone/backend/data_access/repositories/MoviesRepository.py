@@ -4,14 +4,14 @@ from data_access.entities.Movie import Movie
 class MoviesRepository:
     def __init__(self, db):
         self.db = db
+        self.per_page = 10
 
-    def get_all(self, search_phrase):
+    def get_all(self, page=1, search_phrase=None):
         movies_query = self.db.session.query(Movie).order_by(Movie.id)
         if search_phrase:
             movies_query = movies_query.filter(Movie.name.ilike("%{}%".format(search_phrase)))
-        count = movies_query.count()
-        movies = movies_query.all()
-        return (count, movies)
+        movies = movies_query.paginate(page, self.per_page, error_out=False)
+        return movies
 
     def get(self, id):
         movie = self.db.session.query(Movie).filter(Movie.id == id).first()

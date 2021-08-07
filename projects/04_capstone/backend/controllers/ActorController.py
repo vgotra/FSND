@@ -3,7 +3,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from backend.schemas.ActorSchema import ActorSchema
+from schemas.ActorSchema import ActorSchema
 from flask import request
 from flask_restx import Resource
 from datetime import datetime

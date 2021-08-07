@@ -26,20 +26,10 @@ def upgrade():
         sa.Column("sex", sa.Boolean(), nullable=False),
         sa.Column("profile_url", sa.String(length=300), nullable=True),
         sa.Column("photo_url", sa.String(length=300), nullable=True),
-        sa.PrimaryKeyConstraint("id")
+        sa.PrimaryKeyConstraint("id"),
     )
-    op.create_table(
-        "genres",
-        sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("name", sa.String(length=100), nullable=False),
-        sa.PrimaryKeyConstraint("id")
-    )
-    op.create_table(
-        "languages",
-        sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("name", sa.String(length=50), nullable=False),
-        sa.PrimaryKeyConstraint("id")
-    )
+    op.create_table("genres", sa.Column("id", sa.Integer(), nullable=False), sa.Column("name", sa.String(length=100), nullable=False), sa.PrimaryKeyConstraint("id"))
+    op.create_table("languages", sa.Column("id", sa.Integer(), nullable=False), sa.Column("name", sa.String(length=50), nullable=False), sa.PrimaryKeyConstraint("id"))
     op.create_table(
         "movies",
         sa.Column("id", sa.Integer(), nullable=False),
@@ -47,7 +37,7 @@ def upgrade():
         sa.Column("description", sa.String(length=300), nullable=True),
         sa.Column("release_date", sa.Date(), nullable=True),
         sa.Column("release_country", sa.String(length=50), nullable=True),
-        sa.PrimaryKeyConstraint("id")
+        sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
         "movies_genres",
@@ -61,7 +51,7 @@ def upgrade():
             ["movie_id"],
             ["movies.id"],
         ),
-        sa.PrimaryKeyConstraint("movie_id", "genre_id")
+        sa.PrimaryKeyConstraint("movie_id", "genre_id"),
     )
     op.create_table(
         "movies_languages",
@@ -75,7 +65,7 @@ def upgrade():
             ["movie_id"],
             ["movies.id"],
         ),
-        sa.PrimaryKeyConstraint("movie_id", "language_id")
+        sa.PrimaryKeyConstraint("movie_id", "language_id"),
     )
     # ### end Alembic commands ###
 
