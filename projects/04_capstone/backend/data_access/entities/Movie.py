@@ -5,10 +5,10 @@ from data_access.entities.MovieLanguage import movie_language_table
 
 
 class Movie(db.Model):
-    __tablename__ = "Movies"
+    __tablename__ = "movies"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
+    name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(300))
     release_date = db.Column(db.Date)
     release_country = db.Column(db.String(50))

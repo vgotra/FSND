@@ -11,7 +11,7 @@ class ActorsRepository:
             actors_query = actors_query.filter(Actor.name.ilike("%{}%".format(search_phrase)))
         count = actors_query.count()
         actors = actors_query.all()
-        return (count, actors)
+        return actors
 
     def get(self, id):
         actor = self.db.session.query(Actor).filter(Actor.id == id).first()
