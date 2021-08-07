@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields, validate, validates
 
 
 class Sex(fields.Field):
@@ -17,9 +17,19 @@ class Sex(fields.Field):
 
 
 class ActorSchema(Schema):
-    id = fields.Int()
+    id = fields.Int(required=False)
     name = fields.Str(required=True)
-    birthday = fields.Date(required=True)
+    birthday = fields.Date(required=True, format="%b %d %Y")
     sex = Sex(required=True)
-    profile_url = fields.Str(data_key="profileUrl", validate=validate.URL(error="Incorrect url"))
-    photo_url = fields.Str(data_key="photoUrl", validate=validate.URL(error="Incorrect url"))
+    profile_url = fields.Str(required=False, data_key="profileUrl")
+    photo_url = fields.Str(required=False, data_key="photoUrl")
+
+    @validates("profile_url")
+    def validate_profile_url(self, value):
+        if value:
+            validate.URL(error="Incorrect url").__call__(value)
+
+    @validates("photo_url")
+    def validate_photo_url(self, value):
+        if value:
+            validate.URL(error="Incorrect url").__call__(value)

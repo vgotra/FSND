@@ -4,9 +4,12 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from schemas.LanguageSchema import LanguageSchema
+from schemas.LanguagesSchema import LanguagesSchema
 from flask import request
 from flask_restx import Resource
 from models.LanguageModels import ns, language_get, language_put
+from app import db
+from data_access.repositories.LanguagesRepository import *
 
 
 @ns.route("/")
@@ -14,14 +17,17 @@ from models.LanguageModels import ns, language_get, language_put
 class LanguagesController(Resource):
     @ns.response(200, "Success", model=[language_get])
     def get(self):
-        languages = [{"id": 1, "name": "Ukrainian"}, {"id": 2, "name": "English"}]
-        return LanguageSchema().dump(languages, many=True)
+        languages = LanguagesRepository(db).get_all()
+        #languages = [{"id": 1, "name": "Ukrainian"}, {"id": 2, "name": "English"}]
+        return LanguagesSchema().dump(languages)
 
     @ns.expect(language_put)
     @ns.response(200, "Success", model=language_get)
     @ns.response(400, "Bad Request")
     def put(self):
         json_data = request.get_json()
-        languages = LanguageSchema().load(json_data)  # Add validation error
+        language = LanguageSchema().load(json_data)  # Add validation error
         print("languages/put:")
-        print(languages)
+        print(language)
+        return LanguageSchema().dump(language)
+

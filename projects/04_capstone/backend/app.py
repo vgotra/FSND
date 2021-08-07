@@ -12,15 +12,6 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from data_access import db
 
-from controllers.MoviesController import ns as MoviesController
-from controllers.MovieController import ns as MovieController
-from controllers.ActorsController import ns as ActorsController
-from controllers.ActorController import ns as ActorController
-from controllers.GenresController import ns as GenresController
-from controllers.GenreController import ns as GenreController
-from controllers.LanguagesController import ns as LanguagesController
-from controllers.LanguageController import ns as LanguageController
-
 from data_access.entities import *
 
 authorizations = {"Bearer Auth": {"type": "apiKey", "in": "header", "name": "Authorization"}}
@@ -39,6 +30,15 @@ migrate = Migrate(app, db)
 CORS(app)
 
 api = Api(app, version="1.0", title="Capstone Agency API", description="A Capstone Agency API", prefix="/api", doc="/docs", security="Bearer Auth", authorizations=authorizations)
+
+from controllers.MoviesController import ns as MoviesController
+from controllers.MovieController import ns as MovieController
+from controllers.ActorsController import ns as ActorsController
+from controllers.ActorController import ns as ActorController
+from controllers.GenresController import ns as GenresController
+from controllers.GenreController import ns as GenreController
+from controllers.LanguagesController import ns as LanguagesController
+from controllers.LanguageController import ns as LanguageController
 
 api.add_namespace(MoviesController)
 api.add_namespace(MovieController)
