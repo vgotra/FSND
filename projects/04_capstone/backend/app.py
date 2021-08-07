@@ -18,9 +18,11 @@ from controllers.LanguagesController import ns as LanguagesController
 from controllers.LanguageController import ns as LanguageController
 
 
+authorizations = {"Bearer Auth": {"type": "apiKey", "in": "header", "name": "Authorization"}}
+
 app = Flask(__name__)
 CORS(app)
-api = Api(app, version="1.0", title="Capstone Agency API", description="A Capstone Agency API", prefix="/api", doc="/docs")
+api = Api(app, version="1.0", title="Capstone Agency API", description="A Capstone Agency API", prefix="/api", doc="/docs", security="Bearer Auth", authorizations=authorizations)
 
 api.add_namespace(MoviesController)
 api.add_namespace(MovieController)

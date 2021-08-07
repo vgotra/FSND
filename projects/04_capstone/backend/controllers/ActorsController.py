@@ -1,16 +1,19 @@
 import os
 import sys
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from backend.schemas.ActorSchema import ActorSchema
 from flask import request
-from flask_restplus import Resource, Namespace
+from flask_restplus import Resource
 from datetime import datetime
-
-ns = Namespace("actors", description="Actors operations")
+from models.ActorModels import ns, actor_get, actor_put
 
 
 @ns.route("/")
+@ns.response(401, "Authentication Error")
 class ActorsController(Resource):
+    @ns.response(200, "Success", model=[actor_get])
     def get(self):
         actors = [
             {"id": 1, "name": "Kevin Spacey", "birthday": datetime.strptime("Jul 26 1959", "%b %d %Y"), "sex": "Male", "profile_url": "", "photo_url": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRjDIrdmcEsDYWAq_O9AC0799hKpHNLfWULqeBPM5jssX7AQ_Ee"},
@@ -18,9 +21,12 @@ class ActorsController(Resource):
         ]
         return ActorSchema().dump(actors, many=True)
 
+    @ns.expect(actor_put)
+    @ns.response(200, "Success", model=actor_get)
+    @ns.response(400, "Bad Request")
     def put(self):
         json_data = request.get_json()
-        actor = ActorSchema().load(json_data) # Add validation error
+        actor = ActorSchema().load(json_data)  # Add validation error
         print("actors/put:")
         print(actor)
         pass
