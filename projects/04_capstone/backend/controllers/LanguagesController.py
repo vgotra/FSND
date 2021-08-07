@@ -5,7 +5,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from backend.schemas.LanguageSchema import LanguageSchema
 from flask import request
-from flask_restplus import Resource
+from flask_restx import Resource
 from models.LanguageModels import ns, language_get, language_put
 
 
