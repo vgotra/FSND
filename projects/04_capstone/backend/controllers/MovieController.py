@@ -26,7 +26,6 @@ class MovieController(Resource):
         movie = MovieSchema().load(json_data)  # Add validation error
         print("movies/patch:")
         print(movie)
-        pass
 
     def delete(self, id):
         pass

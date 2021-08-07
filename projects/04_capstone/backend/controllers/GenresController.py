@@ -25,4 +25,3 @@ class GenresController(Resource):
         genre = GenreSchema().load(json_data)  # Add validation error
         print("genres/put:")
         print(genre)
-        pass

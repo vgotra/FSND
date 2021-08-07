@@ -27,7 +27,6 @@ class ActorController(Resource):
         actor = ActorSchema().load(json_data)  # Add validation error
         print("actors/patch:")
         print(actor)
-        pass
 
     def delete(self, id):
         pass

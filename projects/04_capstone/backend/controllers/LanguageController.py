@@ -26,7 +26,6 @@ class LanguagesController(Resource):
         language = LanguageSchema().load(json_data)  # Add validation error
         print("languages/patch:")
         print(language)
-        pass
 
     def delete(self, id):
         pass

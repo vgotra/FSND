@@ -26,7 +26,6 @@ class GenreController(Resource):
         genre = GenreSchema().load(json_data)  # Add validation error
         print("genres/patch:")
         print(genre)
-        pass
 
     def delete(self, id):
         pass

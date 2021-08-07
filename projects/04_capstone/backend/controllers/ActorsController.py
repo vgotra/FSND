@@ -29,4 +29,3 @@ class ActorsController(Resource):
         actor = ActorSchema().load(json_data)  # Add validation error
         print("actors/put:")
         print(actor)
-        pass

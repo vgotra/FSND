@@ -25,4 +25,3 @@ class LanguagesController(Resource):
         languages = LanguageSchema().load(json_data)  # Add validation error
         print("languages/put:")
         print(languages)
-        pass

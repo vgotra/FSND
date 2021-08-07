@@ -25,4 +25,3 @@ class MoviesController(Resource):
         movie = MovieSchema().load(json_data)  # Add validation error
         print("movies/put:")
         print(movie)
-        pass
