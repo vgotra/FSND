@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Genre } from './genres.interface';
+import { Genre } from '../genre/genre.interface';
 import { GenresStoreService } from './genres.store.service';
 
 @Component({

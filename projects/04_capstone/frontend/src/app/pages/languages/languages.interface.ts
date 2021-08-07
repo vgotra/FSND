@@ -1,6 +1,8 @@
-import { Entity } from "src/app/common/interfaces/Entity";
+import { Language } from "../language/language.interface";
 
-export interface Language extends Entity {
-    id: number;
-    name: string;
+export interface Languages {
+    languages: Language[];
+    page: number;
+    pages: number;
+    total: number;
 }

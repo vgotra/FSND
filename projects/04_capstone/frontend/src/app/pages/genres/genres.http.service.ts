@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BaseHttpService } from 'src/app/common/services/BaseHttpService.service';
 import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Genre } from './genres.interface';
+import { Genres } from './genres.interface';
 
 @Injectable({ providedIn: 'root' })
 export class GenresHttpService extends BaseHttpService {
@@ -13,7 +13,7 @@ export class GenresHttpService extends BaseHttpService {
         super();
     }
 
-    getAll(): Observable<Genre[]> {
-        return this.http.get<Genre[]>(this.endpoint).pipe(retry(1), catchError(this.handleError));
+    getAll(): Observable<Genres> {
+        return this.http.get<Genres>(this.endpoint).pipe(retry(1), catchError(this.handleError));
     }
 }

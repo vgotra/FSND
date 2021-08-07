@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 import { BaseStoreEntitiesService } from "../../common/services/BaseStoreEntitiesService.service";
+import { Movie } from "../movie/movie.interface";
 import { MoviesHttpService } from "./movies.http.service";
-import { Movie } from "./movies.interface";
+import { Movies } from "./movies.interface";
 
 @Injectable({ providedIn: 'root' })
 export class MoviesStoreService extends BaseStoreEntitiesService<Movie> {
@@ -11,9 +12,9 @@ export class MoviesStoreService extends BaseStoreEntitiesService<Movie> {
         super();
     }
 
-    public LoadEntities(): Observable<Movie[]> {
+    public LoadEntities(): Observable<Movies> {
         return this.service.getAll().pipe(
-            tap((response: Movie[]) => this.merge(response))
+            tap((response: Movies) => this.merge(response.movies))
         );
     }
 }

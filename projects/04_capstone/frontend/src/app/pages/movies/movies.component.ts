@@ -3,7 +3,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Movie } from './movies.interface';
+import { Movie } from '../movie/movie.interface';
+
 import { MoviesStoreService } from './movies.store.service';
 
 @Component({

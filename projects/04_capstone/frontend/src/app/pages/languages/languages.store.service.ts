@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 import { BaseStoreEntitiesService } from "../../common/services/BaseStoreEntitiesService.service";
+import { Language } from "../language/language.interface";
 import { LanguagesHttpService } from "./languages.http.service";
-import { Language } from "./languages.interface";
+import { Languages } from "./languages.interface";
 
 @Injectable({ providedIn: 'root' })
 export class LanguagesStoreService extends BaseStoreEntitiesService<Language> {
@@ -11,9 +12,9 @@ export class LanguagesStoreService extends BaseStoreEntitiesService<Language> {
         super();
     }
 
-    public LoadEntities(): Observable<Language[]> {
+    public LoadEntities(): Observable<Languages> {
         return this.service.getAll().pipe(
-            tap((response: Language[]) => this.merge(response))
+            tap((response: Languages) => this.merge(response.languages))
         );
     }
 }

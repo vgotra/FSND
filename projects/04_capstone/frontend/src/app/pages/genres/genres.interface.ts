@@ -1,6 +1,8 @@
-import { Entity } from "src/app/common/interfaces/Entity";
+import { Genre } from "../genre/genre.interface";
 
-export interface Genre extends Entity {
-    id: number;
-    name: string;
+export interface Genres {
+    genres: Genre[];
+    page: number;
+    pages: number;
+    total: number;
 }

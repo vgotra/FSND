@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BaseHttpService } from 'src/app/common/services/BaseHttpService.service';
 import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Language } from './languages.interface';
+import { Languages } from './languages.interface';
 
 @Injectable({ providedIn: 'root' })
 export class LanguagesHttpService extends BaseHttpService {
@@ -13,7 +13,7 @@ export class LanguagesHttpService extends BaseHttpService {
         super();
     }
 
-    getAll(): Observable<Language[]> {
-        return this.http.get<Language[]>(this.endpoint).pipe(retry(1), catchError(this.handleError));
+    getAll(): Observable<Languages> {
+        return this.http.get<Languages>(this.endpoint).pipe(retry(1), catchError(this.handleError));
     }
 }

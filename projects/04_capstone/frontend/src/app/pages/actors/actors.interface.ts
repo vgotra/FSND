@@ -1,10 +1,8 @@
-import { Entity } from "src/app/common/interfaces/Entity";
+import { Actor } from "../actor/actor.interface";
 
-export interface Actor extends Entity {
-    id: number;
-    name: string;
-    birthday: Date;
-    sex: boolean;
-    profileUrl: string;
-    photoUrl: string;
+export interface Actors {
+    actors: Actor[];
+    page: number;
+    pages: number;
+    total: number;
 }

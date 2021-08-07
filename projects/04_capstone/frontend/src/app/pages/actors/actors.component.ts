@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Actor } from './actors.interface';
+import { Actor } from '../actor/actor.interface';
 import { ActorsStoreService } from './actors.store.service';
 
 @Component({

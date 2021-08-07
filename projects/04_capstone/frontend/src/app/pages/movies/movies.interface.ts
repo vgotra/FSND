@@ -1,9 +1,8 @@
-import { Entity } from "src/app/common/interfaces/Entity";
+import { Movie } from "../movie/movie.interface";
 
-export interface Movie extends Entity {
-    id: number;
-    name: string;
-    description: string;
-    releaseDate: Date;
-    releaseCountry: string;
+export interface Movies {
+    movies: Movie[];
+    page: number;
+    pages: number;
+    total: number;
 }
