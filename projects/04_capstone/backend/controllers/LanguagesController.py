@@ -3,6 +3,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 from schemas.LanguageSchema import LanguageSchema
 from schemas.LanguagesSchema import LanguagesSchema
 from flask import request
@@ -18,7 +19,6 @@ class LanguagesController(Resource):
     @ns.response(200, "Success", model=[language_get])
     def get(self):
         languages = LanguagesRepository(db).get_all()
-        #languages = [{"id": 1, "name": "Ukrainian"}, {"id": 2, "name": "English"}]
         return LanguagesSchema().dump(languages)
 
     @ns.expect(language_put)
@@ -26,8 +26,5 @@ class LanguagesController(Resource):
     @ns.response(400, "Bad Request")
     def put(self):
         json_data = request.get_json()
-        language = LanguageSchema().load(json_data)  # Add validation error
-        print("languages/put:")
-        print(language)
+        language = LanguageSchema().load(json_data)
         return LanguageSchema().dump(language)
-

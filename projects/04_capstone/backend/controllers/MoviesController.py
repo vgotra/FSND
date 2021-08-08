@@ -3,6 +3,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 from schemas.MovieSchema import MovieSchema
 from schemas.MoviesSchema import MoviesSchema
 from flask import request
@@ -18,7 +19,6 @@ class MoviesController(Resource):
     @ns.response(200, "Success", model=[movie_get])
     def get(self):
         movies = MoviesRepository(db).get_all()
-        #movies = [{"id": 1, "name": "The Usual Suspects"}, {"id": 2, "name": "The Matrix"}]
         return MoviesSchema().dump(movies)
 
     @ns.expect(movie_put)
@@ -26,7 +26,5 @@ class MoviesController(Resource):
     @ns.response(400, "Bad Request")
     def put(self):
         json_data = request.get_json()
-        movie = MovieSchema().load(json_data)  # Add validation error
-        print("movies/put:")
-        print(movie)
+        movie = MovieSchema().load(json_data)
         return MovieSchema().dump(movie)

@@ -51,13 +51,15 @@ api.add_namespace(LanguageController)
 
 
 @app.route("/", defaults={"route": None})
-@app.route("/<route>")
+@app.route("/<string:route>")
 def index(route):
     if route:
         return render_template("index.html", route=route)
     else:
         return render_template("index.html")
 
+
+from controllers.ErrorsController import *
 
 if __name__ == "__main__":
     app.run()

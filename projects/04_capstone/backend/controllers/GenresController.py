@@ -3,6 +3,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 from schemas.GenreSchema import GenreSchema
 from schemas.GenresSchema import GenresSchema
 from flask import request
@@ -18,7 +19,6 @@ class GenresController(Resource):
     @ns.response(200, "Success", model=[genre_get])
     def get(self):
         genres = GenresRepository(db).get_all()
-        #genres = [{"id": 1, "name": "Mystery"}, {"id": 2, "name": "Crime"}]
         return GenresSchema().dump(genres)
 
     @ns.expect(genre_put)
@@ -26,7 +26,5 @@ class GenresController(Resource):
     @ns.response(400, "Bad Request")
     def put(self):
         json_data = request.get_json()
-        genre = GenreSchema().load(json_data)  # Add validation error
-        print("genres/put:")
-        print(genre)
+        genre = GenreSchema().load(json_data)
         return GenreSchema().dump(genre)
