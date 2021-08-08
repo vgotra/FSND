@@ -27,6 +27,7 @@ pip install -r requirements.txt
 - MacOS/Linux
 
 ```shell
+source env/bin/activate
 export FLASK_APP=app
 export FLASK_ENV=development
 python app.py
@@ -35,6 +36,7 @@ python app.py
 - Windows with using PowerShell (in case of using 1 installed version of Python use **python**, otherwise use your version of **python3**)
 
 ```powershell
+.\env\Scripts\activate.ps1
 $env:FLASK_APP = 'app'
 $env:FLASK_ENV = 'development'
 python .\app.py

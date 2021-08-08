@@ -1,4 +1,5 @@
 from data_access.entities.Language import Language
+from data_access.exceptions.NotFound import NotFound
 
 
 class LanguagesRepository:
@@ -19,8 +20,11 @@ class LanguagesRepository:
 
     def update(self, id, language):
         language_db = self.db.session.query(Language).filter(Language.id == id).first()
+        if not language_db:
+            raise NotFound("Entity is not found")
         self.set_data(language_db, language)
         self.db.session.commit()
+        return language_db
 
     def create(self, language):
         new_language = Language()

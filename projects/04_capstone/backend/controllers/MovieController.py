@@ -10,15 +10,20 @@ from flask_restx import Resource
 from models.MovieModels import ns, movie_get, movie_patch
 from app import db
 from data_access.repositories.MoviesRepository import *
+from common.exceptions.ApiError import ApiError
+from data_access.exceptions.NotFound import NotFound
 
 
 @ns.route("/<int:id>")
 @ns.doc(params={"id": "Movie id"})
 @ns.response(401, "Authentication Error")
+@ns.response(404, "Not Found")
 class MovieController(Resource):
     @ns.response(200, "Success", model=movie_get)
     def get(self, id):
         movie = MoviesRepository(db).get(id)
+        if not movie:
+            raise ApiError("Movie is not found", 404)
         return MovieSchema().dump(movie)
 
     @ns.expect(movie_patch)
@@ -27,7 +32,11 @@ class MovieController(Resource):
     def patch(self, id):
         json_data = request.get_json()
         movie = MovieSchema().load(json_data)
-        return MovieSchema().dump(movie)
+        try:
+            movie_db = MoviesRepository(db).update(id, movie)
+        except NotFound:
+            raise ApiError("Movie is not found", 404)
+        return MovieSchema().dump(movie_db)
 
     def delete(self, id):
         pass

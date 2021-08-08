@@ -1,4 +1,5 @@
 from data_access.entities.Movie import Movie
+from data_access.exceptions.NotFound import NotFound
 
 
 class MoviesRepository:
@@ -19,8 +20,11 @@ class MoviesRepository:
 
     def update(self, id, movie):
         movie_db = self.db.session.query(Movie).filter(Movie.id == id).first()
+        if not movie_db:
+            raise NotFound("Entity is not found")
         self.set_data(movie_db, movie)
         self.db.session.commit()
+        return movie_db
 
     def create(self, movie):
         new_movie = Movie()

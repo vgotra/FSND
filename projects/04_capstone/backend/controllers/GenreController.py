@@ -10,15 +10,19 @@ from flask_restx import Resource
 from models.GenreModels import ns, genre_get, genre_patch
 from app import db
 from data_access.repositories.GenresRepository import *
+from common.exceptions.ApiError import ApiError
 
 
 @ns.route("/<int:id>")
 @ns.doc(params={"id": "Genre id"})
 @ns.response(401, "Authentication Error")
+@ns.response(404, "Not Found")
 class GenreController(Resource):
     @ns.response(200, "Success", model=genre_get)
     def get(self, id):
         genre = GenresRepository(db).get(id)
+        if not genre:
+            raise ApiError("Genre is not found", 404)
         return GenreSchema().dump(genre)
 
     @ns.expect(genre_patch)
@@ -27,7 +31,11 @@ class GenreController(Resource):
     def patch(self, id):
         json_data = request.get_json()
         genre = GenreSchema().load(json_data)
-        return GenreSchema().dump(genre)
+        try:
+            genre_db = GenresRepository(db).update(id, genre)
+        except NotFound:
+            raise ApiError("Genre is not found", 404)
+        return GenreSchema().dump(genre_db)
 
     def delete(self, id):
         pass

@@ -1,4 +1,5 @@
 from data_access.entities.Genre import Genre
+from data_access.exceptions.NotFound import NotFound
 
 
 class GenresRepository:
@@ -19,8 +20,11 @@ class GenresRepository:
 
     def update(self, id, genre):
         genre_db = self.db.session.query(Genre).filter(Genre.id == id).first()
+        if not genre_db:
+            raise NotFound("Entity is not found")
         self.set_data(genre_db, genre)
         self.db.session.commit()
+        return genre_db
 
     def create(self, genre):
         new_genre = Genre()

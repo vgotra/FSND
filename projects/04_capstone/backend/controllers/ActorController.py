@@ -10,15 +10,19 @@ from flask_restx import Resource
 from models.ActorModels import ns, actor_get, actor_patch
 from app import db
 from data_access.repositories.ActorsRepository import *
+from common.exceptions.ApiError import ApiError
 
 
 @ns.route("/<int:id>")
 @ns.doc(params={"id": "Actor id"})
 @ns.response(401, "Authentication Error")
+@ns.response(404, "Not Found")
 class ActorController(Resource):
     @ns.response(200, "Success", model=actor_get)
     def get(self, id):
         actor = ActorsRepository(db).get(id)
+        if not actor:
+            raise ApiError("Actor is not found", 404)
         return ActorSchema().dump(actor)
 
     @ns.expect(actor_patch)
@@ -27,7 +31,11 @@ class ActorController(Resource):
     def patch(self, id):
         json_data = request.get_json()
         actor = ActorSchema().load(json_data)
-        return ActorSchema().dump(actor)
+        try:
+            actor_db = ActorsRepository(db).update(id, actor)
+        except NotFound:
+            raise ApiError("Actor is not found", 404)
+        return ActorSchema().dump(actor_db)
 
     def delete(self, id):
         pass

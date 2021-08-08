@@ -6,8 +6,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 
 from app import app
 from flask import jsonify
-from auth.AuthError import AuthError
-from common.models.ApiError import ApiError
+from common.exceptions.AuthError import AuthError
+from common.exceptions.ApiError import ApiError
 from marshmallow.exceptions import ValidationError
 
 

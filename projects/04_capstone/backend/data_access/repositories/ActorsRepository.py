@@ -1,4 +1,5 @@
 from data_access.entities.Actor import Actor
+from data_access.exceptions.NotFound import NotFound
 
 
 class ActorsRepository:
@@ -19,8 +20,11 @@ class ActorsRepository:
 
     def update(self, id, actor):
         actor_db = self.db.session.query(Actor).filter(Actor.id == id).first()
+        if not actor_db:
+            raise NotFound("Entity is not found")
         self.set_data(actor_db, actor)
         self.db.session.commit()
+        return actor_db
 
     def create(self, actor):
         new_actor = Actor()

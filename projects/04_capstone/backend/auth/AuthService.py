@@ -1,9 +1,15 @@
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 import json
 from flask import request, _request_ctx_stack
 from functools import wraps
 from urllib.request import urlopen
 from jose import jwt
-from AuthError import AuthError
+from common.exceptions.AuthError import AuthError
 
 
 AUTH0_DOMAIN = "dev-fsnd-capstone-agency.eu.auth0.com"
