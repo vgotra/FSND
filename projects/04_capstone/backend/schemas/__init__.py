@@ -1,1 +1,1 @@
-__all__ = ["ActorSchema", "GenreSchema", "MovieSchema", "LanguageSchema"]
+__all__ = ["ActorSchema", "ActorsSchema", "GenreSchema", "GenresSchema", "MovieSchema", "MoviesSchema", "LanguageSchema", "LanguagesSchema"]

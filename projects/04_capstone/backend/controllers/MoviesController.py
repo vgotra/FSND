@@ -8,7 +8,7 @@ from schemas.MovieSchema import MovieSchema
 from schemas.MoviesSchema import MoviesSchema
 from flask import request
 from flask_restx import Resource
-from models.MovieModels import ns, movie_get, movie_put
+from models.MovieModels import ns, movie_get, movie_put, movies_get
 from app import db
 from data_access.repositories.MoviesRepository import *
 
@@ -16,7 +16,7 @@ from data_access.repositories.MoviesRepository import *
 @ns.route("/")
 @ns.response(401, "Authentication Error")
 class MoviesController(Resource):
-    @ns.response(200, "Success", model=[movie_get])
+    @ns.response(200, "Success", model=movies_get)
     def get(self):
         movies = MoviesRepository(db).get_all()
         return MoviesSchema().dump(movies)

@@ -8,7 +8,7 @@ from schemas.ActorSchema import ActorSchema
 from schemas.ActorsSchema import ActorsSchema
 from flask import request
 from flask_restx import Resource
-from models.ActorModels import ns, actor_get, actor_put
+from models.ActorModels import ns, actor_get, actor_put, actors_get
 from app import db
 from data_access.repositories.ActorsRepository import *
 
@@ -16,7 +16,7 @@ from data_access.repositories.ActorsRepository import *
 @ns.route("/")
 @ns.response(401, "Authentication Error")
 class ActorsController(Resource):
-    @ns.response(200, "Success", model=[actor_get])
+    @ns.response(200, "Success", model=actors_get)
     def get(self):
         actors = ActorsRepository(db).get_all()
         return ActorsSchema().dump(actors)
