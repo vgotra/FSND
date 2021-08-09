@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthModule } from '@auth0/auth0-angular';
+import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { ActorsComponent } from './pages/actors/actors.component';
 import { ActorComponent } from './pages/actor/actor.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -27,6 +27,8 @@ import { LanguageStoreService } from './pages/language/language.store.service';
 import { LanguagesComponent } from './pages/languages/languages.component';
 import { LanguagesStoreService } from './pages/languages/languages.store.service';
 import { NotFoundComponent } from './common/components/not-found/not-found.component';
+import { AuthButtonComponent } from './auth/AuthButtonComponent';
+import { UserProfileComponent } from './auth/UserProfileComponent ';
 
 @NgModule({
   declarations: [
@@ -39,14 +41,17 @@ import { NotFoundComponent } from './common/components/not-found/not-found.compo
     GenreComponent,
     LanguagesComponent,
     LanguageComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AuthButtonComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AuthModule.forRoot({
       domain: 'dev-fsnd-capstone-agency.eu.auth0.com',
-      clientId: 'og3O1MANqyolsad7yaxonr4OWhCjb5hm'
+      clientId: 'og3O1MANqyolsad7yaxonr4OWhCjb5hm',
+      audience: 'https://fsnd-capstone-agency.herokuapp.com'
     }),
     AppRoutingModule,
     MaterialModule,
@@ -54,6 +59,7 @@ import { NotFoundComponent } from './common/components/not-found/not-found.compo
     FlexLayoutModule
   ],
   providers: [
+    AuthService,
     ActorsStoreService,
     ActorStoreService,
     MoviesStoreService,

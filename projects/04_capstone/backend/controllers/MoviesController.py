@@ -4,6 +4,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
+from auth.AuthService import requires_auth
 from schemas.MovieSchema import MovieSchema
 from schemas.MoviesSchema import MoviesSchema
 from flask import request
@@ -21,6 +22,7 @@ class MoviesController(Resource):
         movies = MoviesRepository(db).get_all()
         return MoviesSchema().dump(movies)
 
+    @requires_auth('put:movie')
     @ns.expect(movie_put)
     @ns.response(200, "Success", model=movie_get)
     @ns.response(400, "Bad Request")

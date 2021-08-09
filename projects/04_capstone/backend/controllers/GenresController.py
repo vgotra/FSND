@@ -4,6 +4,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
+from auth.AuthService import requires_auth
 from schemas.GenreSchema import GenreSchema
 from schemas.GenresSchema import GenresSchema
 from flask import request
@@ -21,6 +22,7 @@ class GenresController(Resource):
         genres = GenresRepository(db).get_all()
         return GenresSchema().dump(genres)
 
+    @requires_auth('put:genre')
     @ns.expect(genre_put)
     @ns.response(200, "Success", model=genre_get)
     @ns.response(400, "Bad Request")

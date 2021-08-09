@@ -4,6 +4,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
+from auth.AuthService import requires_auth
 from schemas.ActorSchema import ActorSchema
 from schemas.ActorsSchema import ActorsSchema
 from flask import request
@@ -21,6 +22,7 @@ class ActorsController(Resource):
         actors = ActorsRepository(db).get_all()
         return ActorsSchema().dump(actors)
 
+    @requires_auth('put:actor')
     @ns.expect(actor_put)
     @ns.response(200, "Success", model=actor_get)
     @ns.response(400, "Bad Request")

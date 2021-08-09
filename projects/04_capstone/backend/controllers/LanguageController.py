@@ -4,6 +4,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
+from auth.AuthService import requires_auth
 from schemas.LanguageSchema import LanguageSchema
 from flask import request
 from flask_restx import Resource
@@ -18,6 +19,7 @@ from common.exceptions.ApiError import ApiError
 @ns.response(401, "Authentication Error")
 @ns.response(404, "Not Found")
 class LanguagesController(Resource):
+    @requires_auth('get:language')
     @ns.response(200, "Success", model=language_get)
     def get(self, id):
         language = LanguagesRepository(db).get(id)
@@ -25,6 +27,7 @@ class LanguagesController(Resource):
             raise ApiError("Language is not found", 404)
         return LanguageSchema().dump(language)
 
+    @requires_auth('patch:language')
     @ns.expect(language_patch)
     @ns.response(200, "Success", model=language_get)
     @ns.response(400, "Bad Request")
@@ -37,5 +40,6 @@ class LanguagesController(Resource):
             raise ApiError("Language is not found", 404)
         return LanguageSchema().dump(language_db)
 
+    @requires_auth('delete:language')
     def delete(self, id):
         pass

@@ -4,6 +4,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
+from auth.AuthService import requires_auth
 from schemas.MovieSchema import MovieSchema
 from flask import request
 from flask_restx import Resource
@@ -19,6 +20,7 @@ from data_access.exceptions.NotFound import NotFound
 @ns.response(401, "Authentication Error")
 @ns.response(404, "Not Found")
 class MovieController(Resource):
+    @requires_auth('get:movie')
     @ns.response(200, "Success", model=movie_get)
     def get(self, id):
         movie = MoviesRepository(db).get(id)
@@ -26,6 +28,7 @@ class MovieController(Resource):
             raise ApiError("Movie is not found", 404)
         return MovieSchema().dump(movie)
 
+    @requires_auth('patch:movie')
     @ns.expect(movie_patch)
     @ns.response(200, "Success", model=movie_get)
     @ns.response(400, "Bad Request")
@@ -38,5 +41,6 @@ class MovieController(Resource):
             raise ApiError("Movie is not found", 404)
         return MovieSchema().dump(movie_db)
 
+    @requires_auth('delete:movie')
     def delete(self, id):
         pass

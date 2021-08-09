@@ -4,6 +4,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
+from auth.AuthService import requires_auth
 from schemas.LanguageSchema import LanguageSchema
 from schemas.LanguagesSchema import LanguagesSchema
 from flask import request
@@ -21,6 +22,7 @@ class LanguagesController(Resource):
         languages = LanguagesRepository(db).get_all()
         return LanguagesSchema().dump(languages)
 
+    @requires_auth('put:language')
     @ns.expect(language_put)
     @ns.response(200, "Success", model=language_get)
     @ns.response(400, "Bad Request")
