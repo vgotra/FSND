@@ -43,4 +43,7 @@ class MovieController(Resource):
 
     @requires_auth('delete:movie')
     def delete(self, id):
-        pass
+        try:
+            MoviesRepository(db).delete(id)
+        except NotFound:
+            raise ApiError("Movie is not found", 404)

@@ -42,4 +42,7 @@ class ActorController(Resource):
 
     @requires_auth('delete:actor')
     def delete(self, id):
-        pass
+        try:
+            ActorsRepository(db).delete(id)
+        except NotFound:
+            raise ApiError("Actor is not found", 404)

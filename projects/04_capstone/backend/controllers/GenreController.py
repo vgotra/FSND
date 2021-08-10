@@ -42,4 +42,7 @@ class GenreController(Resource):
 
     @requires_auth('delete:genre')
     def delete(self, id):
-        pass
+        try:
+            GenresRepository(db).delete(id)
+        except NotFound:
+            raise ApiError("Genre is not found", 404)

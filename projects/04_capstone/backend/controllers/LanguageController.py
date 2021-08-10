@@ -42,4 +42,7 @@ class LanguagesController(Resource):
 
     @requires_auth('delete:language')
     def delete(self, id):
-        pass
+        try:
+            LanguagesRepository(db).delete(id)
+        except NotFound:
+            raise ApiError("Language is not found", 404)

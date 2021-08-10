@@ -32,6 +32,13 @@ class ActorsRepository:
         self.db.session.add(new_actor)
         self.db.session.commit()
 
+    def delete(self, id):
+        actor_db = self.db.session.query(Actor).filter(Actor.id == id).first()
+        if not actor_db:
+            raise NotFound("Entity is not found")
+        self.db.session.delete(actor_db)
+        self.db.session.commit()
+
     def set_data(actor_db, actor_model):
         actor_db.name = actor_model.name
         actor_db.phone = actor_model.birthday

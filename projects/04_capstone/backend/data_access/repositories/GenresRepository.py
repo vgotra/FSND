@@ -32,6 +32,13 @@ class GenresRepository:
         self.db.session.add(new_genre)
         self.db.session.commit()
 
+    def delete(self, id):
+        genre_db = self.db.session.query(Genre).filter(Genre.id == id).first()
+        if not genre_db:
+            raise NotFound("Entity is not found")
+        self.db.session.delete(genre_db)
+        self.db.session.commit()
+
     def set_data(genre_db, genre_model):
         genre_db.name = genre_model.name
         genre_db.phone = genre_model.birthday
