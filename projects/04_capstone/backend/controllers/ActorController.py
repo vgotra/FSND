@@ -19,7 +19,7 @@ from common.exceptions.ApiError import ApiError
 @ns.response(401, "Authentication Error")
 @ns.response(404, "Not Found")
 class ActorController(Resource):
-    @requires_auth('get:actor')
+    @requires_auth('get:actor-details')
     @ns.response(200, "Success", model=actor_get)
     def get(self, id):
         actor = ActorsRepository(db).get(id)

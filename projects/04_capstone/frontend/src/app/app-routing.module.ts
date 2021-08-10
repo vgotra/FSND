@@ -9,17 +9,18 @@ import { LanguagesComponent } from './pages/languages/languages.component';
 import { MovieComponent } from './pages/movie/movie.component';
 import { MoviesComponent } from './pages/movies/movies.component';
 import { NotFoundComponent } from './common/components/not-found/not-found.component';
+import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   { path: '', redirectTo: '/actors', pathMatch: 'full' },
-  { path: 'actors', component: ActorsComponent },
-  { path: 'actors/:id', component: ActorComponent },
-  { path: 'movies', component: MoviesComponent },
-  { path: 'movies/:id', component: MovieComponent },
-  { path: 'genres', component: GenresComponent },
-  { path: 'genres/:id', component: GenreComponent },
-  { path: 'languages', component: LanguagesComponent },
-  { path: 'languages/:id', component: LanguageComponent },
+  { path: 'actors', component: ActorsComponent, canActivate: [AuthGuard] },
+  { path: 'actors/:id', component: ActorComponent, canActivate: [AuthGuard] },
+  { path: 'movies', component: MoviesComponent, canActivate: [AuthGuard] },
+  { path: 'movies/:id', component: MovieComponent, canActivate: [AuthGuard] },
+  { path: 'genres', component: GenresComponent, canActivate: [AuthGuard] },
+  { path: 'genres/:id', component: GenreComponent, canActivate: [AuthGuard] },
+  { path: 'languages', component: LanguagesComponent, canActivate: [AuthGuard] },
+  { path: 'languages/:id', component: LanguageComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }  // Wildcard route for a 404 page
 ];
 

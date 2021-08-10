@@ -7,7 +7,7 @@ import { Genre } from './genre.interface';
 
 @Injectable({ providedIn: 'root' })
 export class GenreHttpService extends BaseHttpService {
-    endpoint: string = 'genres';
+    endpoint: string = '/api/genres';
 
     constructor(private http: HttpClient) {
         super();

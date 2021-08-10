@@ -8,8 +8,6 @@ import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { ActorsComponent } from './pages/actors/actors.component';
 import { ActorComponent } from './pages/actor/actor.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RequestInterceptor } from './common/interceptors/http.interceptor';
-import { AuthInterceptor } from './common/interceptors/auth.interceptor';
 import { ActorsStoreService } from './pages/actors/actors.store.service';
 import { ActorStoreService } from './pages/actor/actor.store.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -29,6 +27,7 @@ import { LanguagesStoreService } from './pages/languages/languages.store.service
 import { NotFoundComponent } from './common/components/not-found/not-found.component';
 import { AuthButtonComponent } from './auth/AuthButtonComponent';
 import { UserProfileComponent } from './auth/UserProfileComponent ';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
@@ -51,8 +50,15 @@ import { UserProfileComponent } from './auth/UserProfileComponent ';
     AuthModule.forRoot({
       domain: 'dev-fsnd-capstone-agency.eu.auth0.com',
       clientId: 'og3O1MANqyolsad7yaxonr4OWhCjb5hm',
-      audience: 'https://fsnd-capstone-agency.herokuapp.com'
-    }),
+      audience: 'https://fsnd-capstone-agency.herokuapp.com',
+      redirectUri: window.location.origin,
+      httpInterceptor: {
+        allowedList: [
+          '/api',
+          '/api/*'
+        ]
+      }
+      }),
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
@@ -68,8 +74,8 @@ import { UserProfileComponent } from './auth/UserProfileComponent ';
     GenreStoreService,
     LanguagesStoreService,
     LanguageStoreService,
-    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -7,7 +7,7 @@ import { Actors } from './actors.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ActorsHttpService extends BaseHttpService {
-    endpoint: string = 'actors';
+    endpoint: string = '/api/actors';
 
     constructor(private http: HttpClient) {
         super();

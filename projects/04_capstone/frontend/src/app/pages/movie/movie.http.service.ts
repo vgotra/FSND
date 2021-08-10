@@ -7,7 +7,7 @@ import { Movie } from './movie.interface';
 
 @Injectable({ providedIn: 'root' })
 export class MovieHttpService extends BaseHttpService {
-    endpoint: string = 'movies';
+    endpoint: string = '/api/movies';
 
     constructor(private http: HttpClient) {
         super();

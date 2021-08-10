@@ -4,10 +4,9 @@ import { AuthService } from '@auth0/auth0-angular';
 @Component({
     selector: 'app-user-profile',
     template: `
-    <ul *ngIf="auth.user$ | async as user">
-      <li>{{ user.name }}</li>
-      <li>{{ user.email }}</li>
-    </ul>`
+    <ng-container *ngIf="auth.user$ | async as user">
+      <h1>{{ user.nickname }}</h1>
+    </ng-container>`
 })
 export class UserProfileComponent {
     constructor(public auth: AuthService) { }

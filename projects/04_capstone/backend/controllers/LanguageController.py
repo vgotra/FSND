@@ -19,7 +19,7 @@ from common.exceptions.ApiError import ApiError
 @ns.response(401, "Authentication Error")
 @ns.response(404, "Not Found")
 class LanguagesController(Resource):
-    @requires_auth('get:language')
+    @requires_auth('get:language-details')
     @ns.response(200, "Success", model=language_get)
     def get(self, id):
         language = LanguagesRepository(db).get(id)

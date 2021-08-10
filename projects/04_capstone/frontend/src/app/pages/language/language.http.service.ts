@@ -7,7 +7,7 @@ import { Language } from './language.interface';
 
 @Injectable({ providedIn: 'root' })
 export class LanguageHttpService extends BaseHttpService {
-    endpoint: string = 'languages';
+    endpoint: string = '/api/languages';
 
     constructor(private http: HttpClient) {
         super();

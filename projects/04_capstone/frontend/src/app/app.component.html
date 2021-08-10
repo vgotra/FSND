@@ -1,13 +1,18 @@
-<mat-toolbar fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-  <button mat-icon-button aria-label="menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <a href="/">Capstone Agency</a>
-  <a routerLink="/actors" routerLinkActive="active">Actors</a>
-  <a routerLink="/movies">Movies</a>
-  <a routerLink="/genres">Genres</a>
-  <a routerLink="/languages">Languages</a>
-  <app-auth-button></app-auth-button>
+<mat-toolbar>
+  <div fxLayout="row" fxFlex fxLayoutAlign="start center" fxLayoutGap="10px">
+    <button mat-icon-button aria-label="menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a href="/">Capstone Agency</a>
+    <a routerLink="/actors" routerLinkActive="active">Actors</a>
+    <a routerLink="/movies">Movies</a>
+    <a routerLink="/genres">Genres</a>
+    <a routerLink="/languages">Languages</a>
+  </div>
+  <div fxLayout="row" fxFlex fxLayoutAlign="end center" fxLayoutGap="10px">
+    <app-user-profile></app-user-profile>
+    <app-auth-button></app-auth-button>
+  </div>
 </mat-toolbar>
 
 <mat-progress-bar *ngIf="false" mode="indeterminate"></mat-progress-bar>

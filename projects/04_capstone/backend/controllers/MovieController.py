@@ -20,7 +20,7 @@ from data_access.exceptions.NotFound import NotFound
 @ns.response(401, "Authentication Error")
 @ns.response(404, "Not Found")
 class MovieController(Resource):
-    @requires_auth('get:movie')
+    @requires_auth('get:movie-details')
     @ns.response(200, "Success", model=movie_get)
     def get(self, id):
         movie = MoviesRepository(db).get(id)

@@ -19,7 +19,7 @@ from common.exceptions.ApiError import ApiError
 @ns.response(401, "Authentication Error")
 @ns.response(404, "Not Found")
 class GenreController(Resource):
-    @requires_auth('get:genre')
+    @requires_auth('get:genre-details')
     @ns.response(200, "Success", model=genre_get)
     def get(self, id):
         genre = GenresRepository(db).get(id)
