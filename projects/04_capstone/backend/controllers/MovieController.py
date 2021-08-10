@@ -1,6 +1,8 @@
 import os
 import sys
 
+from flask.json import jsonify
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
@@ -20,7 +22,7 @@ from data_access.exceptions.NotFound import NotFound
 @ns.response(401, "Authentication Error")
 @ns.response(404, "Not Found")
 class MovieController(Resource):
-    @requires_auth('get:movie-details')
+    @requires_auth("get:movie-details")
     @ns.response(200, "Success", model=movie_get)
     def get(self, id):
         movie = MoviesRepository(db).get(id)
@@ -28,7 +30,7 @@ class MovieController(Resource):
             raise ApiError("Movie is not found", 404)
         return MovieSchema().dump(movie)
 
-    @requires_auth('patch:movie')
+    @requires_auth("patch:movie")
     @ns.expect(movie_patch)
     @ns.response(200, "Success", model=movie_get)
     @ns.response(400, "Bad Request")
@@ -37,13 +39,14 @@ class MovieController(Resource):
         movie = MovieSchema().load(json_data)
         try:
             movie_db = MoviesRepository(db).update(id, movie)
+            return MovieSchema().dump(movie_db)
         except NotFound:
             raise ApiError("Movie is not found", 404)
-        return MovieSchema().dump(movie_db)
 
-    @requires_auth('delete:movie')
+    @requires_auth("delete:movie")
     def delete(self, id):
         try:
-            MoviesRepository(db).delete(id)
+            deleted_id = MoviesRepository(db).delete(id)
+            return jsonify({"id": deleted_id})
         except NotFound:
             raise ApiError("Movie is not found", 404)

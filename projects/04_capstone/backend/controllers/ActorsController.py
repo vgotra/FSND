@@ -22,11 +22,12 @@ class ActorsController(Resource):
         actors = ActorsRepository(db).get_all()
         return ActorsSchema().dump(actors)
 
-    @requires_auth('put:actor')
+    @requires_auth("put:actor")
     @ns.expect(actor_put)
     @ns.response(200, "Success", model=actor_get)
     @ns.response(400, "Bad Request")
     def put(self):
         json_data = request.get_json()
         actor = ActorSchema().load(json_data)
-        return ActorSchema().dump(actor)
+        actor_db = ActorsRepository(db).create(actor)
+        return ActorSchema().dump(actor_db)

@@ -22,11 +22,12 @@ class LanguagesController(Resource):
         languages = LanguagesRepository(db).get_all()
         return LanguagesSchema().dump(languages)
 
-    @requires_auth('put:language')
+    @requires_auth("put:language")
     @ns.expect(language_put)
     @ns.response(200, "Success", model=language_get)
     @ns.response(400, "Bad Request")
     def put(self):
         json_data = request.get_json()
         language = LanguageSchema().load(json_data)
-        return LanguageSchema().dump(language)
+        language_db = LanguagesRepository(db).create(language)
+        return LanguageSchema().dump(language_db)

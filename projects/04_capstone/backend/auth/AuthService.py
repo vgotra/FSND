@@ -27,7 +27,8 @@ def get_token_auth_header():
     return auth_parts[1]
 
 
-def check_permissions(permission, payload):
+def check_permissions(permission):
+    payload = verify_decode_jwt()
     if not (payload["permissions"]):
         raise AuthError("No permissions", 401)
     if not permission in payload["permissions"]:
@@ -35,7 +36,8 @@ def check_permissions(permission, payload):
     return True
 
 
-def verify_decode_jwt(token):
+def verify_decode_jwt():
+    token = get_token_auth_header()
     unverified_header = jwt.get_unverified_header(token)
     response = urlopen("https://" + AUTH0_DOMAIN + "/.well-known/jwks.json").read()
     auth0_public_keys = json.loads(response.decode("utf-8"))
@@ -61,9 +63,7 @@ def requires_auth(permission=""):
     def requires_auth_decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
-            token = get_token_auth_header()
-            payload = verify_decode_jwt(token)
-            check_permissions(permission, payload)
+            check_permissions(permission)
             return f(*args, **kwargs)
 
         return wrapper

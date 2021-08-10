@@ -31,6 +31,7 @@ class MoviesRepository:
         self.set_data(new_movie, movie)
         self.db.session.add(new_movie)
         self.db.session.commit()
+        return new_movie
 
     def delete(self, id):
         movie_db = self.db.session.query(Movie).filter(Movie.id == id).first()
@@ -38,6 +39,7 @@ class MoviesRepository:
             raise NotFound("Entity is not found")
         self.db.session.delete(movie_db)
         self.db.session.commit()
+        return id
 
     def set_data(movie_db, movie_model):
         movie_db.name = movie_model.name

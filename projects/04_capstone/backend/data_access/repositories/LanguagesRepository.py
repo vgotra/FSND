@@ -31,6 +31,7 @@ class LanguagesRepository:
         self.set_data(new_language, language)
         self.db.session.add(new_language)
         self.db.session.commit()
+        return new_language
 
     def delete(self, id):
         language_db = self.db.session.query(Language).filter(Language.id == id).first()
@@ -38,6 +39,7 @@ class LanguagesRepository:
             raise NotFound("Entity is not found")
         self.db.session.delete(language_db)
         self.db.session.commit()
+        return id
 
     def set_data(language_db, language_model):
         language_db.name = language_model.name

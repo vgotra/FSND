@@ -1,6 +1,8 @@
 import os
 import sys
 
+from flask.json import jsonify
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
@@ -19,7 +21,7 @@ from common.exceptions.ApiError import ApiError
 @ns.response(401, "Authentication Error")
 @ns.response(404, "Not Found")
 class GenreController(Resource):
-    @requires_auth('get:genre-details')
+    @requires_auth("get:genre-details")
     @ns.response(200, "Success", model=genre_get)
     def get(self, id):
         genre = GenresRepository(db).get(id)
@@ -27,7 +29,7 @@ class GenreController(Resource):
             raise ApiError("Genre is not found", 404)
         return GenreSchema().dump(genre)
 
-    @requires_auth('put:genre')
+    @requires_auth("put:genre")
     @ns.expect(genre_patch)
     @ns.response(200, "Success", model=genre_get)
     @ns.response(400, "Bad Request")
@@ -36,13 +38,14 @@ class GenreController(Resource):
         genre = GenreSchema().load(json_data)
         try:
             genre_db = GenresRepository(db).update(id, genre)
+            return GenreSchema().dump(genre_db)
         except NotFound:
             raise ApiError("Genre is not found", 404)
-        return GenreSchema().dump(genre_db)
 
-    @requires_auth('delete:genre')
+    @requires_auth("delete:genre")
     def delete(self, id):
         try:
-            GenresRepository(db).delete(id)
+            deleted_id = GenresRepository(db).delete(id)
+            return jsonify({"id": deleted_id})
         except NotFound:
             raise ApiError("Genre is not found", 404)

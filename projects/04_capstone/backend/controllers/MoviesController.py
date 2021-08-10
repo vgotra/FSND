@@ -22,11 +22,12 @@ class MoviesController(Resource):
         movies = MoviesRepository(db).get_all()
         return MoviesSchema().dump(movies)
 
-    @requires_auth('put:movie')
+    @requires_auth("put:movie")
     @ns.expect(movie_put)
     @ns.response(200, "Success", model=movie_get)
     @ns.response(400, "Bad Request")
     def put(self):
         json_data = request.get_json()
         movie = MovieSchema().load(json_data)
-        return MovieSchema().dump(movie)
+        movie_db = MoviesRepository(db).create(movie)
+        return MovieSchema().dump(movie_db)

@@ -22,11 +22,12 @@ class GenresController(Resource):
         genres = GenresRepository(db).get_all()
         return GenresSchema().dump(genres)
 
-    @requires_auth('put:genre')
+    @requires_auth("put:genre")
     @ns.expect(genre_put)
     @ns.response(200, "Success", model=genre_get)
     @ns.response(400, "Bad Request")
     def put(self):
         json_data = request.get_json()
         genre = GenreSchema().load(json_data)
-        return GenreSchema().dump(genre)
+        genre_db = GenresRepository(db).create(genre)
+        return GenreSchema().dump(genre_db)
