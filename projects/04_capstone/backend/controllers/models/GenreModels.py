@@ -9,3 +9,5 @@ genres_get = ns.model("Genres Get", {"genres": fields.List(fields.Nested(genre_g
 genre_put = ns.model("Genre Put", {"name": fields.String})
 
 genre_patch = ns.model("Genre Patch", {"id": fields.Integer, "name": fields.String})
+
+genre_delete = ns.model("Genre Delete", {"id": fields.Integer})

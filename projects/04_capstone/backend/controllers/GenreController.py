@@ -10,7 +10,7 @@ from auth.AuthService import requires_auth
 from schemas.GenreSchema import GenreSchema
 from flask import request
 from flask_restx import Resource
-from models.GenreModels import ns, genre_get, genre_patch
+from models.GenreModels import ns, genre_get, genre_patch, genre_delete
 from app import db
 from data_access.repositories.GenresRepository import *
 from common.exceptions.ApiError import ApiError
@@ -43,6 +43,7 @@ class GenreController(Resource):
             raise ApiError("Genre is not found", 404)
 
     @requires_auth("delete:genre")
+    @ns.response(200, "Success", model=genre_delete)
     def delete(self, id):
         try:
             deleted_id = GenresRepository(db).delete(id)

@@ -10,7 +10,7 @@ from auth.AuthService import requires_auth
 from schemas.LanguageSchema import LanguageSchema
 from flask import request
 from flask_restx import Resource
-from models.LanguageModels import ns, language_get, language_patch
+from models.LanguageModels import ns, language_get, language_patch, language_delete
 from app import db
 from data_access.repositories.LanguagesRepository import *
 from common.exceptions.ApiError import ApiError
@@ -43,6 +43,7 @@ class LanguagesController(Resource):
             raise ApiError("Language is not found", 404)
 
     @requires_auth("delete:language")
+    @ns.response(200, "Success", model=language_delete)
     def delete(self, id):
         try:
             deleted_id = LanguagesRepository(db).delete(id)

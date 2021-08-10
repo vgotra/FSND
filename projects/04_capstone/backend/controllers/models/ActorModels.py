@@ -9,3 +9,5 @@ actors_get = ns.model("Actors Get", {"actors": fields.List(fields.Nested(actor_g
 actor_put = ns.model("Actor Put", {"name": fields.String, "birthday": fields.Date, "sex": fields.String, "profileUrl": fields.Url, "photoUrl": fields.Url})
 
 actor_patch = ns.model("Actor Patch", {"id": fields.Integer, "name": fields.String, "birthday": fields.Date, "sex": fields.String, "profileUrl": fields.Url, "photoUrl": fields.Url})
+
+actor_delete = ns.model("Actor Delete", {"id": fields.Integer})

@@ -9,3 +9,5 @@ languages_get = ns.model("Languages Get", {"languages": fields.List(fields.Neste
 language_put = ns.model("Language Put", {"name": fields.String})
 
 language_patch = ns.model("Language Patch", {"id": fields.Integer, "name": fields.String})
+
+language_delete = ns.model("Language Delete", {"id": fields.Integer})

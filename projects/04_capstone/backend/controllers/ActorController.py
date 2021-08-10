@@ -10,7 +10,7 @@ from auth.AuthService import requires_auth
 from schemas.ActorSchema import ActorSchema
 from flask import request
 from flask_restx import Resource, model
-from models.ActorModels import ns, actor_get, actor_patch
+from models.ActorModels import ns, actor_get, actor_patch, actor_delete
 from app import db
 from data_access.repositories.ActorsRepository import *
 from common.exceptions.ApiError import ApiError
@@ -43,7 +43,7 @@ class ActorController(Resource):
             raise ApiError("Actor is not found", 404)
 
     @requires_auth("delete:actor")
-    @ns.response(200, "Success")
+    @ns.response(200, "Success", model=actor_delete)
     def delete(self, id):
         try:
             deleted_id = ActorsRepository(db).delete(id)

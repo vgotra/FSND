@@ -10,7 +10,7 @@ from auth.AuthService import requires_auth
 from schemas.MovieSchema import MovieSchema
 from flask import request
 from flask_restx import Resource
-from models.MovieModels import ns, movie_get, movie_patch
+from models.MovieModels import ns, movie_get, movie_patch, movie_delete
 from app import db
 from data_access.repositories.MoviesRepository import *
 from common.exceptions.ApiError import ApiError
@@ -44,6 +44,7 @@ class MovieController(Resource):
             raise ApiError("Movie is not found", 404)
 
     @requires_auth("delete:movie")
+    @ns.response(200, "Success", model=movie_delete)
     def delete(self, id):
         try:
             deleted_id = MoviesRepository(db).delete(id)

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -6,10 +6,8 @@ import { AuthService } from '@auth0/auth0-angular';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Capstone Agency';
 
   constructor(public auth: AuthService) { }
-
-  ngOnInit(): void { }
 }
