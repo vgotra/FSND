@@ -42,8 +42,8 @@ class ActorsRepository:
         return id
 
     def set_data(self, actor_db, actor_model):
-        actor_db.name = actor_model.name
-        actor_db.phone = actor_model.birthday
-        actor_db.sex = actor_model.sex
-        actor_db.profile_url = actor_model.profile_url
-        actor_db.photo_url = actor_model.photo_url
+        actor_db.name = actor_model['name']
+        actor_db.birthday = actor_model['birthday']
+        actor_db.profile_url = actor_model['profile_url']
+        actor_db.sex = actor_model['sex']
+        actor_db.photo_url = actor_model['photo_url']

@@ -28,6 +28,7 @@ class ActorsController(Resource):
     @ns.response(400, "Bad Request")
     def put(self):
         json_data = request.get_json()
+        print(json_data)
         actor = ActorSchema().load(json_data)
         actor_db = ActorsRepository(db).create(actor)
         return ActorSchema().dump(actor_db)

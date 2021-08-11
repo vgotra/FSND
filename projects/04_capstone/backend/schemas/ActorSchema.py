@@ -19,7 +19,7 @@ class Sex(fields.Field):
 class ActorSchema(Schema):
     id = fields.Int(required=False)
     name = fields.Str(required=True)
-    birthday = fields.Date(required=True, format="%b %d %Y")
+    birthday = fields.Date(required=True)
     sex = Sex(required=True)
     profile_url = fields.Str(required=False,  dump_default=None, load_default=None, data_key="profileUrl")
     photo_url = fields.Str(required=False,  dump_default=None, load_default=None, data_key="photoUrl")
