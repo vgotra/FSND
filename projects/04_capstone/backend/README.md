@@ -42,6 +42,26 @@ $env:FLASK_ENV = 'development'
 python .\app.py
 ```
 
+## Unit Tests
+
+- MacOS/Linux
+
+```shell
+source env/bin/activate
+export FLASK_APP=app
+export FLASK_ENV=development
+pytest
+```
+
+- Windows with using PowerShell (in case of using 1 installed version of Python use **python**, otherwise use your version of **python3**)
+
+```powershell
+.\env\Scripts\activate.ps1
+$env:FLASK_APP = 'app'
+$env:FLASK_ENV = 'development'
+pytest
+```
+
 ## References
 
 - Mostly all packages of this project have their official documentation - please take a look at package documentation official links at [PYPI](https://pypi.org/)
