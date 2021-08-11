@@ -455,7 +455,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IklSNjc4OUEtNEREaFpNWDJibS1NXyJ9.eyJpc3MiOiJodHRwczovL2Rldi1mc25kLWNhcHN0b25lLWFnZW5jeS5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjExNDAzMTQ2NmFlYzAwMDZiOTQ1MDM5IiwiYXVkIjpbImh0dHBzOi8vZnNuZC1jYXBzdG9uZS1hZ2VuY3kuaGVyb2t1YXBwLmNvbSIsImh0dHBzOi8vZGV2LWZzbmQtY2Fwc3RvbmUtYWdlbmN5LmV1LmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2Mjg3MDE5NzQsImV4cCI6MTYyODc4ODM3NCwiYXpwIjoib2czTzFNQU5xeW9sc2FkN3lheG9ucjRPV2hDamI1aG0iLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiZ2V0OmFjdG9yLWRldGFpbHMiLCJnZXQ6bW92aWUtZGV0YWlscyJdfQ.NlYaNQMJjnoN907Tt8Obyj9-AIpZulgeGoIulT4_kaa00ZVL4b4OUwwVmT2VFF5ZcJmgcGEeNZsE68K3lv3AvNVDE70g-FQb03RnruWfIBttpkFqvaX4bccaCqMzDNe3rB4xQJ6KILOT_AOzkxr8dbQowGsfEtGTkfhxzRHexvzgBexWyIPZoyEdtz3CnmRbUDiBKx3jiAanKGFRpVI608riZ8a69-GsQdXGN9OgphHPU2eVP6VPie6VbVB0K2l-PAPoD_3UtSj_KTPUitC9Iuo7nbx-pxM7_qp35cayQsgsTzVabGIZgw9f-qExsL0XTmpbcK8aAebxtgeN5njC3A",
+						"value": "",
 						"type": "string"
 					}
 				]
@@ -813,7 +813,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IklSNjc4OUEtNEREaFpNWDJibS1NXyJ9.eyJpc3MiOiJodHRwczovL2Rldi1mc25kLWNhcHN0b25lLWFnZW5jeS5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjExNDAzYmFhYzY0NWIwMDcyM2FmMjU1IiwiYXVkIjpbImh0dHBzOi8vZnNuZC1jYXBzdG9uZS1hZ2VuY3kuaGVyb2t1YXBwLmNvbSIsImh0dHBzOi8vZGV2LWZzbmQtY2Fwc3RvbmUtYWdlbmN5LmV1LmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2Mjg3MDczMDUsImV4cCI6MTYyODc5MzcwNSwiYXpwIjoib2czTzFNQU5xeW9sc2FkN3lheG9ucjRPV2hDamI1aG0iLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZ2V0OmFjdG9yLWRldGFpbHMiLCJnZXQ6bW92aWUtZGV0YWlscyIsInBhdGNoOmFjdG9yIiwicGF0Y2g6bW92aWUiLCJwdXQ6YWN0b3IiLCJwdXQ6bW92aWUiXX0.BAqvlylrfFYG-x996MiwrjNrFG5YAjm_g5DtxqrX0yGtEZcUG0b1181mD-vkgpKxKEMSwyexS78J6Ygo1B9LE3PPKeCR3fAm8f-ophzHbhSxQ6_KJq9fz3aW4I8l9tCDY4R2vGpz4LGcGR0nwFyfoUbN9jkmv19osdgAUVJHJYwhxkc58qOA9nADYKiXpCLYC0b0jIMEiUzSejXYzTnbM-xub2Hiw6vHMQ01H9dm6gXpNfkckHsccFwQdwJ8ovUUPHafKq9BH1mqgks6x1wP2MO_VYAtKgXhqy7pIsaBF_-t7cLnKnmlkJDJ-xV-5rocI1Vaf0sAEsN8EYt3CX9MqA",
+						"value": "",
 						"type": "string"
 					}
 				]
@@ -1168,7 +1168,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IklSNjc4OUEtNEREaFpNWDJibS1NXyJ9.eyJpc3MiOiJodHRwczovL2Rldi1mc25kLWNhcHN0b25lLWFnZW5jeS5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjExNDA0MmI2NmFlYzAwMDZiOTQ1MGNjIiwiYXVkIjpbImh0dHBzOi8vZnNuZC1jYXBzdG9uZS1hZ2VuY3kuaGVyb2t1YXBwLmNvbSIsImh0dHBzOi8vZGV2LWZzbmQtY2Fwc3RvbmUtYWdlbmN5LmV1LmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2Mjg3MDc3ODEsImV4cCI6MTYyODc5NDE4MSwiYXpwIjoib2czTzFNQU5xeW9sc2FkN3lheG9ucjRPV2hDamI1aG0iLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllIiwiZ2V0OmFjdG9yLWRldGFpbHMiLCJnZXQ6bW92aWUtZGV0YWlscyIsInBhdGNoOmFjdG9yIiwicGF0Y2g6bW92aWUiLCJwdXQ6YWN0b3IiLCJwdXQ6Z2VucmUiLCJwdXQ6bW92aWUiXX0.RPdIDmI7Y1aJmUkbau9XgB20pDnfANvprci7OyBis38t5EdZ5i1KV93RdJgtSc1RylcWoBmJ6iX6Fl3eG-c_gWMsrpQ1STkg0E9zWxolTsOWoaIttLgmzs7WobhRQJN1PlWq1zZQunACWWrHWOb-RF0-z404WD-nT0KArPksxMJ46r6YtW_Af7-NNU4b3eYG7jpJOjPLWPDFYb49hkqhpDMfK5OVrpXGwfpPZY7_yNUbogCGPrWY0_Ui3bKliJ-LQ3mBf5IhUA1jAi6UcB7gZLcFVHNZTayjXShy90e7jyvWfN6LyMBki03qMy4YT9jsBf91Hih2PR2qPzw1sulI-g",
+						"value": "",
 						"type": "string"
 					}
 				]
@@ -1218,7 +1218,7 @@
 	"variable": [
 		{
 			"key": "host",
-			"value": "localhost:5000/api"
+			"value": "https://fsnd-capstone-agency.herokuapp.com/api"
 		},
 		{
 			"key": "actorId",

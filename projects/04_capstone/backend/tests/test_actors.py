@@ -47,25 +47,25 @@ class CapstoneAgencyTestCase(unittest.TestCase):
     @patch.object(ActorsRepository, "update", return_value={"id": 1, "name": "Test"})
     @patch.object(AuthService, "check_permissions", return_value=True)
     def test_update_actor_success(self, auth, repo):
-        res = self.client().patch("/api/actors/1", data=json.dumps(dict({"id": 1, "name": "Test", "birthday": "Apr 16 1916", "sex": "Male"})), content_type="application/json")
+        res = self.client().patch("/api/actors/1", data=json.dumps(dict({"id": 1, "name": "Test", "birthday": "1916-04-16", "sex": "Male"})), content_type="application/json")
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.json["name"], "Test")
 
     @patch.object(ActorsRepository, "update", return_value={"id": 1, "name": "Test"})
     def test_update_actor_error(self, repo):
-        res = self.client().patch("/api/actors/1", data=json.dumps(dict({"id": 1, "name": "Test", "birthday": "Apr 16 1916", "sex": "Male"})), content_type="application/json")
+        res = self.client().patch("/api/actors/1", data=json.dumps(dict({"id": 1, "name": "Test", "birthday": "1916-04-16", "sex": "Male"})), content_type="application/json")
         self.assertEqual(res.status_code, 401)
 
     @patch.object(ActorsRepository, "create", return_value={"id": 1, "name": "Test"})
     @patch.object(AuthService, "check_permissions", return_value=True)
     def test_create_actor_success(self, auth, repo):
-        res = self.client().put("/api/actors/", data=json.dumps(dict({"id": 1, "name": "Test", "birthday": "Apr 16 1916", "sex": "Male"})), content_type="application/json")
+        res = self.client().put("/api/actors/", data=json.dumps(dict({"id": 1, "name": "Test", "birthday": "1916-04-16", "sex": "Male"})), content_type="application/json")
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.json["name"], "Test")
 
     @patch.object(ActorsRepository, "create", return_value={"id": 1, "name": "Test"})
     def test_create_actor_error(self, repo):
-        res = self.client().put("/api/actors/", data=json.dumps(dict({"id": 1, "name": "Test", "birthday": "Apr 16 1916", "sex": "Male"})), content_type="application/json")
+        res = self.client().put("/api/actors/", data=json.dumps(dict({"id": 1, "name": "Test", "birthday": "1916-04-16", "sex": "Male"})), content_type="application/json")
         self.assertEqual(res.status_code, 401)
 
     @patch.object(ActorsRepository, "delete", return_value=1)
