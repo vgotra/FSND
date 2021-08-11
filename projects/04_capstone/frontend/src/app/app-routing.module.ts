@@ -10,6 +10,7 @@ import { MovieComponent } from './pages/movie/movie.component';
 import { MoviesComponent } from './pages/movies/movies.component';
 import { NotFoundComponent } from './common/components/not-found/not-found.component';
 import { AuthGuard } from '@auth0/auth0-angular';
+import { TokenComponent } from './pages/token/token.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/actors', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'genres/:id', component: GenreComponent, canActivate: [AuthGuard] },
   { path: 'languages', component: LanguagesComponent, canActivate: [AuthGuard] },
   { path: 'languages/:id', component: LanguageComponent, canActivate: [AuthGuard] },
+  { path: 'token', component: TokenComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }  // Wildcard route for a 404 page
 ];
 

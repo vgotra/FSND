@@ -41,9 +41,5 @@ class LanguagesRepository:
         self.db.session.commit()
         return id
 
-    def set_data(language_db, language_model):
+    def set_data(self, language_db, language_model):
         language_db.name = language_model.name
-        language_db.phone = language_model.birthday
-        language_db.sex = language_model.sex
-        language_db.profile_url = language_model.profile_url
-        language_db.photo_url = language_model.photo_url

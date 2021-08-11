@@ -41,7 +41,7 @@ class ActorsRepository:
         self.db.session.commit()
         return id
 
-    def set_data(actor_db, actor_model):
+    def set_data(self, actor_db, actor_model):
         actor_db.name = actor_model.name
         actor_db.phone = actor_model.birthday
         actor_db.sex = actor_model.sex

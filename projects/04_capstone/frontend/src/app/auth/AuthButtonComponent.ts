@@ -6,9 +6,7 @@ import { DOCUMENT } from '@angular/common';
     selector: 'app-auth-button',
     template: `
     <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
-      <button (click)="auth.logout({ returnTo: document.location.origin })">
-        Log out
-      </button>
+      <button (click)="auth.logout({ returnTo: document.location.origin })">Log out</button>
     </ng-container>
 
     <ng-template #loggedOut>

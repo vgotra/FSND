@@ -41,9 +41,9 @@ class MoviesRepository:
         self.db.session.commit()
         return id
 
-    def set_data(movie_db, movie_model):
-        movie_db.name = movie_model.name
-        movie_db.phone = movie_model.birthday
-        movie_db.sex = movie_model.sex
-        movie_db.profile_url = movie_model.profile_url
-        movie_db.photo_url = movie_model.photo_url
+    def set_data(self, movie_db, movie_model):
+        movie_db.name = movie_model['name']
+        movie_db.description = movie_model['description']
+        movie_db.release_date = movie_model['release_date']
+        movie_db.release_country = movie_model['release_country']
+

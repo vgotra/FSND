@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,6 +27,7 @@ import { NotFoundComponent } from './common/components/not-found/not-found.compo
 import { AuthButtonComponent } from './auth/AuthButtonComponent';
 import { UserProfileComponent } from './auth/UserProfileComponent ';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+import { TokenComponent } from './pages/token/token.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,8 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
     LanguageComponent,
     NotFoundComponent,
     AuthButtonComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    TokenComponent
   ],
   imports: [
     BrowserModule,

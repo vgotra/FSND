@@ -41,9 +41,5 @@ class GenresRepository:
         self.db.session.commit()
         return id
 
-    def set_data(genre_db, genre_model):
+    def set_data(self, genre_db, genre_model):
         genre_db.name = genre_model.name
-        genre_db.phone = genre_model.birthday
-        genre_db.sex = genre_model.sex
-        genre_db.profile_url = genre_model.profile_url
-        genre_db.photo_url = genre_model.photo_url

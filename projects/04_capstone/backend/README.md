@@ -44,5 +44,6 @@ python .\app.py
 
 ## References
 
-- [Flask-RestPlus](https://flask-restplus.readthedocs.io/)
-- [Python API: Authorization](https://auth0.com/docs/quickstart/backend/python/01-authorization)
+- Mostly all packages of this project have their official documentation - please take a look at package documentation official links at [PYPI](https://pypi.org/)
+
+- Additional information you can mostly always find at [StackOverflow](https://stackoverflow.com/)
