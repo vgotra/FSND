@@ -4,13 +4,12 @@ Project with some data related to typical company which is creating movies and m
 
 ## Prerequisites
 
-- Install PostgreSQL database, Python, Angular, Node, etc.
-
+- Install PostgreSQL database, Python framework, etc.
 - Create a local database and set connection string in Environment variable (**DATABASE_URL**) in format usable for Alchemy and PostgreSQL
-
-- Create account at Heroku and Github or other
-
+- Create account at [Heroku](https://heroku.com/) and [Github](https://github.com) or other
+- Create account at [Auth0](https://auth0.com/)
 - Initialize and activate a virtualenv using:
+- At local PC run commands:
 
 MacOS/Linux
 
@@ -28,10 +27,8 @@ python -m virtualenv env
 pip install -r requirements.txt
 ```
 
-- Setup account at Auth0 with all permissions and roles, etc.
-
+- Configure permissions and roles at [Auth0](https://auth0.com/), etc.
 - Use flask migrate commands to migrate database structure (docs at flask migrate official site)
-
 - Launch application
 
 ## How to launch application
@@ -79,6 +76,8 @@ pytest
 ```
 
 ## References
+
+- Python Docs at [Python](https://www.python.org/)
 
 - Mostly all packages of this project have their official documentation - please take a look at package documentation official links at [PYPI](https://pypi.org/)
 
