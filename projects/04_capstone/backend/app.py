@@ -15,18 +15,14 @@ from data_access import db
 from data_access.entities import *
 
 authorizations = {"Bearer Auth": {"type": "apiKey", "in": "header", "name": "Authorization"}}
-
 app = Flask(__name__)
-
 db_url = os.getenv("DATABASE_URL")
 if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://", 1)
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
 db.init_app(app)
 migrate = Migrate(app, db)
-
 CORS(app)
 
 api = Api(app, version="1.0", title="Capstone Agency API", description="A Capstone Agency API", prefix="/api", doc="/docs", security="Bearer Auth", authorizations=authorizations)
@@ -49,14 +45,11 @@ api.add_namespace(GenreController)
 api.add_namespace(LanguagesController)
 api.add_namespace(LanguageController)
 
-
+# Some "hack" to allow Angular to be hosted in Flask and redirect to correct urls
 @app.route("/", defaults={"route": None})
 @app.route("/<string:route>")
 def index(route):
-    if route:
-        return render_template("index.html", route=route)
-    else:
-        return render_template("index.html")
+    return render_template("index.html")
 
 
 from controllers.ErrorsController import *

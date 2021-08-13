@@ -42,4 +42,4 @@ class GenresRepository:
         return id
 
     def set_data(self, genre_db, genre_model):
-        genre_db.name = genre_model['name']
+        genre_db.name = genre_model["name"]

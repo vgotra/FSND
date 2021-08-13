@@ -42,8 +42,7 @@ class MoviesRepository:
         return id
 
     def set_data(self, movie_db, movie_model):
-        movie_db.name = movie_model['name']
-        movie_db.description = movie_model['description']
-        movie_db.release_date = movie_model['release_date']
-        movie_db.release_country = movie_model['release_country']
-
+        movie_db.name = movie_model["name"]
+        movie_db.description = movie_model["description"]
+        movie_db.release_date = movie_model["release_date"]
+        movie_db.release_country = movie_model["release_country"]

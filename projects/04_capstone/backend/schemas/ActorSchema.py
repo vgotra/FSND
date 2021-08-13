@@ -21,8 +21,8 @@ class ActorSchema(Schema):
     name = fields.Str(required=True)
     birthday = fields.Date(required=True)
     sex = Sex(required=True)
-    profile_url = fields.Str(required=False,  dump_default=None, load_default=None, data_key="profileUrl")
-    photo_url = fields.Str(required=False,  dump_default=None, load_default=None, data_key="photoUrl")
+    profile_url = fields.Str(required=False, dump_default=None, load_default=None, data_key="profileUrl")
+    photo_url = fields.Str(required=False, dump_default=None, load_default=None, data_key="photoUrl")
 
     @validates("profile_url")
     def validate_profile_url(self, value):

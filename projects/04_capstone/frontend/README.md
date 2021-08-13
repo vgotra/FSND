@@ -25,6 +25,12 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Build
 
+**IMPORTANT**: This application configured to be built with the folowing command (params **--deploy-url /static/** help to host Angular in Flask app):
+
+```shell
+ng build --deploy-url /static/
+```
+
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests

@@ -4,6 +4,7 @@ Project with some data related to typical company which is creating movies and m
 
 ## Prerequisites
 
+- **IMPORTANT**: This application will host Angular application on prod (pls check frontend README.md how to build Angulat application)
 - Install PostgreSQL database, Python framework, etc.
 - Create a local database and set connection string in Environment variable (**DATABASE_URL**) in format usable for Alchemy and PostgreSQL
 - Create account at [Heroku](https://heroku.com/) and [Github](https://github.com) or other

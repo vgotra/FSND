@@ -42,4 +42,4 @@ class LanguagesRepository:
         return id
 
     def set_data(self, language_db, language_model):
-        language_db.name = language_model['name']
+        language_db.name = language_model["name"]
