@@ -59,7 +59,7 @@ import { TokenComponent } from './pages/token/token.component';
           '/api/*'
         ]
       }
-      }),
+    }),
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
@@ -75,8 +75,7 @@ import { TokenComponent } from './pages/token/token.component';
     GenreStoreService,
     LanguagesStoreService,
     LanguageStoreService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
-    //{ provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
